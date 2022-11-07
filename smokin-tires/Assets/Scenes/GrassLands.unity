@@ -270,16 +270,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138866227}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.909847, y: 0, z: 30.722013}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1873434270}
   - {fileID: 2028317007}
   - {fileID: 1117226290718404353}
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 1612885792}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &200974744
 MonoBehaviour:
@@ -1086,7 +1086,7 @@ GameObject:
   - component: {fileID: 1238719784}
   - component: {fileID: 1238719787}
   - component: {fileID: 1238719786}
-  - component: {fileID: 1238719785}
+  - component: {fileID: 1238719788}
   m_Layer: 0
   m_Name: CarCamera
   m_TagString: Untagged
@@ -1101,28 +1101,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238719783}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.94, y: 14, z: 0.62}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 8, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1117226290718404353}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &1238719785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1238719783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c4fa6c84ac9c7949b6d02c4a4ae494f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1117226290718404353}
-  CameraOffSet: {x: 0, y: 14, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!81 &1238719786
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1174,6 +1160,24 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1238719788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238719783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d6c2cffda56cb14c82085ac3f58d581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachedVechicle: {fileID: 345369559216108987}
+  cameraFolder: {fileID: 1238719783}
+  camLocation:
+  - {fileID: 0}
+  locationIndicator: 2
+  smoothTime: 0.3
 --- !u!114 &1286485858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1778,6 +1782,7 @@ Transform:
   - {fileID: 63718789}
   - {fileID: 1643902302}
   - {fileID: 2040652027}
+  - {fileID: 138866228}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6268,7 +6273,7 @@ GameObject:
   - component: {fileID: 345369559216108985}
   - component: {fileID: 1117226290718404354}
   m_Layer: 0
-  m_Name: Non-Arcade-Car
+  m_Name: NonArcadeCar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6397,7 +6402,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345369559216108987}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.3334007, y: 0, z: -7.8600864}
+  m_LocalPosition: {x: 0, y: 0, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
