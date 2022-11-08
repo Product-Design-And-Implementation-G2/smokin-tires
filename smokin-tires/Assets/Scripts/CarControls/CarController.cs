@@ -14,6 +14,13 @@ public class CarController : MonoBehaviour
     private float currentSteerAngle;
     private bool isBreaking;
     private float currentBreakForce;
+    Rigidbody carRigidbody;
+
+    void Awake()
+    {
+        carRigidbody = GetComponent<Rigidbody>();
+    }
+
 
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
@@ -87,5 +94,10 @@ public class CarController : MonoBehaviour
         wheelCollider.GetWorldPose(out pos, out rot);
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
+    }
+
+    public float GetVelocityMagnitude()
+    {
+        return carRigidbody.velocity.magnitude;
     }
 }
