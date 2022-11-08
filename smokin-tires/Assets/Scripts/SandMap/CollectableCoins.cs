@@ -5,30 +5,23 @@ using UnityEngine;
 public class CollectableCoins : MonoBehaviour
 {
     public int coins;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] GameObject AllCoins;
 
     //enables coin collection
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 7)
         {
+            //option to destroy the objects
             Destroy(other.gameObject);
+            //option to set the coins as deactivated for later use
+            //other.gameObject.SetActive(false);
             coins++;
-            Debug.Log("Coin collected: " + coins);
-
+            updateCoinAmount(coins);
         }
     }
-
-
+    public void updateCoinAmount(int a)
+    {
+        FindObjectOfType<GameManager>().GetCoins(a);
+    }
 }
