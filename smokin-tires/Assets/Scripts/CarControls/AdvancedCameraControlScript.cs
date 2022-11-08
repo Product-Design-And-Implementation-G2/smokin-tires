@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AdvancedCameraFollowScript : MonoBehaviour
+public class AdvancedCameraControlScript : MonoBehaviour
 {
 
     public GameObject attachedVechicle;

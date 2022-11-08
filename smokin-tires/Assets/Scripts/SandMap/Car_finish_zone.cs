@@ -5,12 +5,12 @@ using UnityEngine;
 public class Car_finish_zone : MonoBehaviour
 {
 	//A reference to the game manager
-	public GameManager gameManager2;
+	public GameManager gameManager;
 
 	// When an object enters the finish zone, let the
 	// game manager know that the current game has ended
 	void OnTriggerEnter(Collider other)
 	{
-		gameManager2.FinishedGame();
+		gameManager.FinishedGame();
 	}
 }
