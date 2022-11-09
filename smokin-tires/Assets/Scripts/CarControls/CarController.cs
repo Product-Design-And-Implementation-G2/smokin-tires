@@ -14,6 +14,13 @@ public class CarController : MonoBehaviour
     private float currentSteerAngle;
     private bool isBreaking;
     private float currentBreakForce;
+    Rigidbody carRigidbody;
+
+    void Awake()
+    {
+        carRigidbody = GetComponent<Rigidbody>();
+    }
+
 
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
@@ -48,6 +55,9 @@ public class CarController : MonoBehaviour
 
     private void HandleMotor()
     {
+        if (verticalInput == 0)
+            carRigidbody.drag = Mathf.Lerp(carRigidbody.drag, 0.8f, Time.fixedDeltaTime * 2);
+        else carRigidbody.drag = 0;
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
         currentBreakForce = isBreaking ? breakForce : 0f;
@@ -88,4 +98,13 @@ public class CarController : MonoBehaviour
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
     }
+
+    public float GetVelocityMagnitude()
+    {
+        return carRigidbody.velocity.magnitude;
+    }
+
+   
+
+    
 }
