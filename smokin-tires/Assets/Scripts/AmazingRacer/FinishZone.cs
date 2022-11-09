@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class FinishZone : MonoBehaviour
@@ -11,4 +12,9 @@ public class FinishZone : MonoBehaviour
 	{
 		gameManager.FinishedGame();
 	}
+
+    internal void updateCapsuleColliderState(bool v)
+    {
+        throw new NotImplementedException();
+    }
 }
