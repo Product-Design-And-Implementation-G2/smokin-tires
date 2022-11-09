@@ -8,8 +8,10 @@ public class CarSFXHandler : MonoBehaviour
 {
     [Header("AudioSource")]
     public AudioSource high_on;
+    public AudioSource tiresScreech;
 
     float desiredEnginePitch = 0.5f;
+    float tireScreechPitch = 0.5f;
 
     CarController CarController;
 
@@ -21,13 +23,14 @@ public class CarSFXHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateEngineSFX();
+        
     }
 
     void UpdateEngineSFX()
@@ -39,8 +42,9 @@ public class CarSFXHandler : MonoBehaviour
         desiredEnginePitch = velocityMagnitude * 0.2f;
         desiredEnginePitch = Mathf.Clamp(desiredEnginePitch, 0.5f, 2f);
         high_on.pitch = Mathf.Lerp(high_on.pitch, desiredEnginePitch, Time.deltaTime * 1.5f);
-
-
-
     }
+
+  
+
 }
+

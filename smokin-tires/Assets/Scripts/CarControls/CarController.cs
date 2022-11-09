@@ -55,6 +55,9 @@ public class CarController : MonoBehaviour
 
     private void HandleMotor()
     {
+        if (verticalInput == 0)
+            carRigidbody.drag = Mathf.Lerp(carRigidbody.drag, 0.8f, Time.fixedDeltaTime * 2);
+        else carRigidbody.drag = 0;
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
         currentBreakForce = isBreaking ? breakForce : 0f;
@@ -100,4 +103,8 @@ public class CarController : MonoBehaviour
     {
         return carRigidbody.velocity.magnitude;
     }
+
+   
+
+    
 }
