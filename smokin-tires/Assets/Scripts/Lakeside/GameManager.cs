@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public int coinAmount;
 
     // So that we can access the player's controller from this script
-    private CarController carController;
+    private PrometeoCarController carController;
 
     // Use this for initialization
     void Start()
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         Physics.autoSyncTransforms = true;
 
         // Finds the Car Controller script on the Player
-        carController = player.GetComponent<CarController>();
+        //carController = player.GetComponent<PrometeoCarController>();
 
         // Disables controls before the game starts.
         carController.enabled = false;
