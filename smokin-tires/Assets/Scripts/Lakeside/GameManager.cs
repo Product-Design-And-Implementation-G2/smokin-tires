@@ -167,11 +167,6 @@ public class GameManager : MonoBehaviour
             GUI.Box(new Rect(Screen.width / 2 - 65, Screen.height - 115, 130, 40), "Coins collected:");
             GUI.Label(new Rect(Screen.width / 2 - 30, 470, 110, 70), coinAmount.ToString());
         }
-        // If the player gets 3 or more coins, tell the player to get to the finish zone
-        else if (coinAmount >= 5)
-        {
-            GUI.Box(new Rect(Screen.width / 2 - 90, Screen.height - 115, 130, 40), "Get to the FINISH!");
-        }
         // If the game is running, show the current time in time trial mode
         else if (isRunning && timeTrialMode)
         {
