@@ -38,7 +38,8 @@ public class GameManager : MonoBehaviour
         //carController = player.GetComponent<PrometeoCarController>();
 
         // Disables controls before the game starts.
-        carController.enabled = false;
+        //TODO: Fix erros with this carController when launching the game
+        //carController.enabled = false;
 
         //set finish zone un-active
         finishZone.SetActive(false);
@@ -74,7 +75,9 @@ public class GameManager : MonoBehaviour
 
         // Move the player to the spawn point, and allow it to move.
         PositionPlayer();
-        carController.enabled = true;
+        
+        //TODO: this needs to be fixed
+        //carController.enabled = true;
 
         //set finish zone un-active
         finishZone.SetActive(false);
