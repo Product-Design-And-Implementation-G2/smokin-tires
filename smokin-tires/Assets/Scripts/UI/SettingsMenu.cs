@@ -11,8 +11,10 @@ public class SettingsMenu : MonoBehaviour
     Resolution[] resolutions;
 
     public TMP_Dropdown resolutionDropdown;
-
     public TMP_Dropdown graphicsDropdown;
+
+    public Camera mainMenuCamera;
+    public Camera garageCamera;
 
     private void Start()
     {
@@ -45,6 +47,10 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
+
+        //set cameras
+        mainMenuCamera.enabled = true;
+        garageCamera.enabled = false;
     }
 
 
@@ -66,5 +72,18 @@ public class SettingsMenu : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+    public void SwapCamera()
+    {
+        if(mainMenuCamera.enabled == true)
+        {
+            garageCamera.enabled = true;
+            mainMenuCamera.enabled = false;
+        } else if (garageCamera.enabled == true)
+        {
+            mainMenuCamera.enabled = true;
+            garageCamera.enabled = false;
+        }
+        
     }
 }
