@@ -1,2 +1,2 @@
 # smokin-tires
-Top-down racing game for Unity.
+3D racing game for Unity.
