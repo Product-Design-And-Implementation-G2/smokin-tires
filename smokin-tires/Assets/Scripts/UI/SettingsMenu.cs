@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -13,11 +14,17 @@ public class SettingsMenu : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
     public TMP_Dropdown graphicsDropdown;
 
-    public Camera mainMenuCamera;
-    public Camera garageCamera;
+    [SerializeField] private GameObject mainMenuCamera2;
+    [SerializeField] private GameObject garageCamera2;
+
+    //[SerializeField] private new GameObject camera;
 
     private void Start()
     {
+        //set up cameras
+        mainMenuCamera2.SetActive(true);
+        garageCamera2.SetActive(false);
+
         //set quality settings
         int qualityLevel = QualitySettings.GetQualityLevel();
         graphicsDropdown.value = qualityLevel;
@@ -46,17 +53,21 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
-
-
-        //set cameras
-        mainMenuCamera.enabled = true;
-        garageCamera.enabled = false;
     }
 
+    public void StartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    public void QuitGame()
+    {
+        Debug.Log("Game successfully closed");
+        Application.Quit();
+    }
 
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("carMixer", volume);
+        audioMixer.SetFloat("BGMMixer", volume);
     } 
     public void SetQuality(int qualityIndex)
     {
@@ -73,17 +84,18 @@ public class SettingsMenu : MonoBehaviour
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
-    public void SwapCamera()
+    public void SwapToCarCamera()
     {
-        if(mainMenuCamera.enabled == true)
-        {
-            garageCamera.enabled = true;
-            mainMenuCamera.enabled = false;
-        } else if (garageCamera.enabled == true)
-        {
-            mainMenuCamera.enabled = true;
-            garageCamera.enabled = false;
-        }
-        
+        mainMenuCamera2.SetActive(false);
+        garageCamera2.SetActive(true);
+        mainMenuCamera2.GetComponent<AudioListener>().enabled = false;
+        garageCamera2.GetComponent<AudioListener>().enabled = true;
+    }
+    public void SwapToMenuCamera()
+    {
+        mainMenuCamera2.SetActive(true);
+        garageCamera2.SetActive(false);
+        mainMenuCamera2.GetComponent<AudioListener>().enabled = true;
+        garageCamera2.GetComponent<AudioListener>().enabled = false;
     }
 }

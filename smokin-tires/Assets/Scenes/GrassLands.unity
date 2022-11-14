@@ -11489,6 +11489,8 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 50e7249faa8f88249a9040f50a5fcd0c, type: 2}
   resolutionDropdown: {fileID: 2654748323873412929}
   graphicsDropdown: {fileID: 2654748322414142909}
+  mainMenuCamera: {fileID: 0}
+  garageCamera: {fileID: 0}
 --- !u!114 &9180500360696312809
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11502,6 +11504,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 9180500360755628737}
+  optionsMenuUI: {fileID: 0}
 --- !u!224 &9180500360696312810
 RectTransform:
   m_ObjectHideFlags: 0
