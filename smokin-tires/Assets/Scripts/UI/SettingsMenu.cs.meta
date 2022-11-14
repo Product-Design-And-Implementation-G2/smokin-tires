@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 2a4bf482f7dae964bbbcf3e18e5d554b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - audioMixer: {fileID: 24100000, guid: 50e7249faa8f88249a9040f50a5fcd0c, type: 2}
+  - resolutionDropdown: {instanceID: 0}
+  - graphicsDropdown: {instanceID: 0}
+  - mainMenuCamera: {instanceID: 0}
+  - garageCamera: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

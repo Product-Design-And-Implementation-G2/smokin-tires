@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     // Place holders to allow connecting to other objects
     public Transform spawnPoint;
     public GameObject player;
+    public GameObject[] usersCars;
 
     // Flags that control the state of the game
     private float timeLeft;
@@ -28,9 +29,46 @@ public class GameManager : MonoBehaviour
     // So that we can access the player's controller from this script
     private PrometeoCarController carController;
 
+    //get the index of the right car
+    //public PlayerPreferences playerPreferences;
+
+    //car index
+    public int carIndex;
+
     // Use this for initialization
     void Start()
     {
+        Debug.Log("carindex " + PlayerPreferences.carIndex);
+        //choose the right car with carindex
+        UpdateCarIndex();
+
+        //carIndex = 0;
+
+        if (carIndex == 0)
+        { usersCars[0].gameObject.SetActive(true);
+            usersCars[1].gameObject.SetActive(false);
+            usersCars[2].gameObject.SetActive(false);
+            usersCars[3].gameObject.SetActive(false);
+        }
+        if (carIndex == 1)
+        { usersCars[1].gameObject.SetActive(true);
+            usersCars[0].gameObject.SetActive(false);
+            usersCars[2].gameObject.SetActive(false);
+            usersCars[3].gameObject.SetActive(false);
+        }
+        if (carIndex == 2)
+        { usersCars[2].gameObject.SetActive(true);
+            usersCars[0].gameObject.SetActive(false);
+            usersCars[1].gameObject.SetActive(false);
+            usersCars[3].gameObject.SetActive(false);
+        }
+        if (carIndex == 3)
+        { usersCars[3].gameObject.SetActive(true);
+            usersCars[0].gameObject.SetActive(false);
+            usersCars[1].gameObject.SetActive(false);
+            usersCars[2].gameObject.SetActive(false);
+        }
+
         //Tell Unity to allow character controllers to have their position set directly. This will enable our respawn to work
         Physics.autoSyncTransforms = true;
 
@@ -38,7 +76,8 @@ public class GameManager : MonoBehaviour
         //carController = player.GetComponent<PrometeoCarController>();
 
         // Disables controls before the game starts.
-        carController.enabled = false;
+        //TODO: Fix erros with this carController when launching the game
+        //carController.enabled = false;
 
         //set finish zone un-active
         finishZone.SetActive(false);
@@ -47,8 +86,14 @@ public class GameManager : MonoBehaviour
         camera.SetActive(true);
 
        //set player un-active before starting
-        player.SetActive(false);
+       // player.SetActive(false);
     }
+     private void UpdateCarIndex()
+    {
+        //carIndex = playerPreferences.carIndex;
+        carIndex = PlayerPreferences.carIndex;
+    }
+
 
     //This resets to game back to the way it started
     private void StartGame()
@@ -56,7 +101,7 @@ public class GameManager : MonoBehaviour
         //set map camera un-active before starting
         camera.SetActive(false);
         //set player active before starting
-        player.SetActive(true);
+       // player.SetActive(true);
 
 
         // TODO: Make these game modes into their own methods
@@ -73,8 +118,10 @@ public class GameManager : MonoBehaviour
         playerFailed = false;
 
         // Move the player to the spawn point, and allow it to move.
-        PositionPlayer();
-        carController.enabled = true;
+       // PositionPlayer();
+        
+        //TODO: this needs to be fixed
+        //carController.enabled = true;
 
         //set finish zone un-active
         finishZone.SetActive(false);
@@ -166,11 +213,6 @@ public class GameManager : MonoBehaviour
             GUI.Box(new Rect(Screen.width / 2 - 90, 150, 180, 70), "You failed");
             GUI.Box(new Rect(Screen.width / 2 - 65, Screen.height - 115, 130, 40), "Coins collected:");
             GUI.Label(new Rect(Screen.width / 2 - 30, 470, 110, 70), coinAmount.ToString());
-        }
-        // If the player gets 3 or more coins, tell the player to get to the finish zone
-        else if (coinAmount >= 5)
-        {
-            GUI.Box(new Rect(Screen.width / 2 - 90, Screen.height - 115, 130, 40), "Get to the FINISH!");
         }
         // If the game is running, show the current time in time trial mode
         else if (isRunning && timeTrialMode)

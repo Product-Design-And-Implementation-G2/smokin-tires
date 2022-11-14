@@ -62,7 +62,9 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 34dfb802d2391f94d8e7651828f3c065
+    name: carMixer
   m_AudioMixerGroupViews:
   - guids:
     - 9e415d8f7f4d989459670a775d88542c
