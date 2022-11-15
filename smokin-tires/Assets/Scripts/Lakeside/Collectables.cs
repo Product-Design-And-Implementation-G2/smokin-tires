@@ -5,7 +5,6 @@ using UnityEngine;
 public class Collectables : MonoBehaviour
 {
     public int coins;
-    //[SerializeField] GameObject AllCoins;
 
     //enables coin collection
     private void OnTriggerEnter(Collider other)
@@ -23,5 +22,6 @@ public class Collectables : MonoBehaviour
     public void updateCoinAmount(int a)
     {
         FindObjectOfType<GameManager>().GetCoins(a);
+        FindObjectOfType<GameManager>().UpdateCoinAmountText();
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +18,15 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject[] usersCars;
 
+    //UI
+    public GameObject startScreen;
+    public GameObject restartGameScreen;
+    public TMP_Text lapTimeText;
+    public TMP_Text currentTimeText;
+    public TMP_Text coinAmountText;
+    public TMP_Text scoreboardText;
+
+
     // Flags that control the state of the game
     private float timeLeft;
     private float timePassed;
@@ -26,11 +37,10 @@ public class GameManager : MonoBehaviour
     //coin collection
     public int coinAmount;
 
+    public int collectedWaypoints;
+
     // So that we can access the player's controller from this script
     private PrometeoCarController carController;
-
-    //get the index of the right car
-    //public PlayerPreferences playerPreferences;
 
     //car index
     public int carIndex;
@@ -96,13 +106,15 @@ public class GameManager : MonoBehaviour
 
 
     //This resets to game back to the way it started
-    private void StartGame()
+    public void StartGame()
     {
+        collectedWaypoints = 0;
+
         //set map camera un-active before starting
         camera.SetActive(false);
         //set player active before starting
-       // player.SetActive(true);
-
+        // TODO: Fix the map camera
+        //player.SetActive(true);
 
         // TODO: Make these game modes into their own methods
 
@@ -130,6 +142,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isRunning)
+        {
+            UpdateCurrentTime();
+        }
         // Add time to the clock if the game is running
         if (isRunning && timerMode)
         {
@@ -143,7 +159,7 @@ public class GameManager : MonoBehaviour
                PlayerFailed();
             }
         }
-        if (coinAmount >= 5)
+        if (collectedWaypoints == 3)
         {
             finishZone.SetActive(true);
         }
@@ -160,22 +176,52 @@ public class GameManager : MonoBehaviour
     // Runs when the player enters the finish zone
     public void FinishedGame()
     {
-        isRunning = false;
-        isFinished = true;
-        carController.enabled = false;
+        UpdateLapTime();
+        timePassed = 0;
+        UpdateCurrentTime();
+        UpdateScoreboard();
+        //isRunning = false;
+        //isFinished = true;
+        //carController.enabled = false;
     }
     // Runs when the player runs out of time
     public void PlayerFailed()
     {
         isRunning = false;
         playerFailed = true;
-        carController.enabled = false;
+        //carController.enabled = false;
     }
 
     public void GetCoins(int receivedCoinAmount)
     {
         coinAmount = receivedCoinAmount;
     }
+
+    public void WaypointCount()
+    {
+        collectedWaypoints++;
+    }
+
+    public void UpdateLapTime()
+    {
+        //lapTimeText.text += timePassed.ToString();
+        lapTimeText.text = timePassed.ToString() + "\n";
+    }
+    public void UpdateScoreboard()
+    {
+        scoreboardText.text = scoreboardText.text + timePassed.ToString() + "\n";
+    }
+    public void UpdateCurrentTime()
+    {
+        currentTimeText.text = timePassed.ToString();
+    }
+    public void UpdateCoinAmountText()
+    {
+        // TODO: make this limit the number of values displayed to 5. Also 
+        coinAmountText.text = coinAmount.ToString();
+    }
+
+
 
     //This section creates a simple Graphical User Interface (GUI)
     void OnGUI()
@@ -184,31 +230,43 @@ public class GameManager : MonoBehaviour
         {
             string message;
 
-            if (isFinished) { message = "Click or Press Enter to Play Again"; }
-            else { message = "Click or Press Enter to Play"; }
+            if (isFinished) { 
+                //message = "Click or Press Enter to Play Again"; 
+
+            }
+            //else { message = "Click or Press Enter to Play"; }
 
             //Define a new rectangle for the UI on the screen
-            Rect startButton = new Rect(Screen.width / 2 - 120, Screen.height / 2, 240, 30);
-
+            //Rect startButton = new Rect(Screen.width / 2 - 120, Screen.height / 2, 240, 30);
+            /*
             if (GUI.Button(startButton, message) || Input.GetKeyDown(KeyCode.Return))
             {
                 //resets movement
                 // TODO: freeze vehicle velocity or slow it down dramatically. It must be zero when player is spawned back at a spawnpoint.
                 //start the game if the user chooses to play
                 StartGame();
-            }
+            }*/
         }
 
         // If the player finished the game in time, show their time
-        if (isFinished)
+       /*
+        * if (isFinished)
         {
             GUI.Box(new Rect(Screen.width / 2 - 110, 80, 220, 60), "YOU WIN! Your Time was:");
             GUI.Label(new Rect(Screen.width / 2 - 0, 100, 50, 50), (((int)timePassed).ToString()));
             GUI.Box(new Rect(Screen.width / 2 - 110, 150, 220, 70), "Coins collected:");
             GUI.Label(new Rect(Screen.width / 2 - 0, 170, 110, 70), coinAmount.ToString());
+        }*/
+       if( isFinished)
+        {
+            //restartGameScreen.SetActive(true);
+
+                //public GameObject startScreen;
+                // public GameObject restartGameScreen;
         }
+
         // If the player has failed the time challenge
-        else if (playerFailed)
+        if (playerFailed)
         {
             GUI.Box(new Rect(Screen.width / 2 - 90, 150, 180, 70), "You failed");
             GUI.Box(new Rect(Screen.width / 2 - 65, Screen.height - 115, 130, 40), "Coins collected:");
