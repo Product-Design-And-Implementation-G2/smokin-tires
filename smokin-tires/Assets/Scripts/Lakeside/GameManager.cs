@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,16 +12,20 @@ public class GameManager : MonoBehaviour
     private bool timerMode = true;
 
     [SerializeField] GameObject finishZone;
-    [SerializeField] private new GameObject camera;
+    [SerializeField] private GameObject camera;
 
     // Place holders to allow connecting to other objects
     public Transform spawnPoint;
     public GameObject player;
     public GameObject[] usersCars;
+    public Transform waypoint1;
+    public Transform waypoint2;
+    public Transform waypoint3;
 
     //UI
     public GameObject startScreen;
     public GameObject restartGameScreen;
+    public GameObject tabScreen;
     public TMP_Text lapTimeText;
     public TMP_Text currentTimeText;
     public TMP_Text coinAmountText;
@@ -37,7 +42,10 @@ public class GameManager : MonoBehaviour
     //coin collection
     public int coinAmount;
 
+    //waypoints
+    public GameObject[] waypoints;
     public int collectedWaypoints;
+    public int currentWaypoint;
 
     // So that we can access the player's controller from this script
     private PrometeoCarController carController;
@@ -52,28 +60,40 @@ public class GameManager : MonoBehaviour
         //choose the right car with carindex
         UpdateCarIndex();
 
-        //carIndex = 0;
+        //set cinematic camera audiolistener off
+        camera.GetComponent<AudioListener>().enabled = false;
+
+        //set current spawn waypoint at spawn
+        currentWaypoint = 0;
 
         if (carIndex == 0)
-        { usersCars[0].gameObject.SetActive(true);
+        {
+            player = usersCars[0];
+            usersCars[0].gameObject.SetActive(true);
             usersCars[1].gameObject.SetActive(false);
             usersCars[2].gameObject.SetActive(false);
             usersCars[3].gameObject.SetActive(false);
         }
         if (carIndex == 1)
-        { usersCars[1].gameObject.SetActive(true);
+        { 
+            player = usersCars[1];
+            usersCars[1].gameObject.SetActive(true);
             usersCars[0].gameObject.SetActive(false);
             usersCars[2].gameObject.SetActive(false);
             usersCars[3].gameObject.SetActive(false);
         }
         if (carIndex == 2)
-        { usersCars[2].gameObject.SetActive(true);
+        {
+            player = usersCars[2];
+            usersCars[2].gameObject.SetActive(true);
             usersCars[0].gameObject.SetActive(false);
             usersCars[1].gameObject.SetActive(false);
             usersCars[3].gameObject.SetActive(false);
         }
         if (carIndex == 3)
-        { usersCars[3].gameObject.SetActive(true);
+        {
+            player = usersCars[3];
+            usersCars[3].gameObject.SetActive(true);
             usersCars[0].gameObject.SetActive(false);
             usersCars[1].gameObject.SetActive(false);
             usersCars[2].gameObject.SetActive(false);
@@ -96,7 +116,7 @@ public class GameManager : MonoBehaviour
         camera.SetActive(true);
 
        //set player un-active before starting
-       // player.SetActive(false);
+        player.SetActive(false);
     }
      private void UpdateCarIndex()
     {
@@ -108,13 +128,16 @@ public class GameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
+        Debug.Log("Start game was run");
+        //set waypoint collected amount to 0 and enable disabled waypoints
         collectedWaypoints = 0;
+        EnableWaypoints();
 
         //set map camera un-active before starting
         camera.SetActive(false);
         //set player active before starting
         // TODO: Fix the map camera
-        //player.SetActive(true);
+        player.SetActive(true);
 
         // TODO: Make these game modes into their own methods
 
@@ -130,13 +153,21 @@ public class GameManager : MonoBehaviour
         playerFailed = false;
 
         // Move the player to the spawn point, and allow it to move.
-       // PositionPlayer();
+        PositionPlayer();
         
         //TODO: this needs to be fixed
         //carController.enabled = true;
 
         //set finish zone un-active
         finishZone.SetActive(false);
+    }
+    public void NewLap()
+    {
+        collectedWaypoints = 0;
+        EnableWaypoints();
+        currentWaypoint = 0;
+        finishZone.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -159,6 +190,22 @@ public class GameManager : MonoBehaviour
                PlayerFailed();
             }
         }
+
+        //if player presses down tab, they can see the current lap times
+        if (Input.GetKey("tab"))
+        {
+            tabScreen.SetActive(true);
+        } else
+        {
+            tabScreen.SetActive(false);
+        }
+
+        if (Input.GetKey("p"))
+        {
+            RespawnAtWaypoint();
+        }
+
+        //check if player has all 3 necessary waypoints to enter the finish zone
         if (collectedWaypoints == 3)
         {
             finishZone.SetActive(true);
@@ -177,13 +224,30 @@ public class GameManager : MonoBehaviour
     public void FinishedGame()
     {
         UpdateLapTime();
+        UpdateScoreboard();
         timePassed = 0;
         UpdateCurrentTime();
-        UpdateScoreboard();
+
         //isRunning = false;
         //isFinished = true;
         //carController.enabled = false;
+
+        NewLap();
     }
+
+    public void FinishedGame2()
+    {
+        // TODO: make this into a function that runs when player has completed 5 laps
+    }
+
+    private void EnableWaypoints()
+    {
+        for (int i = 0; i < waypoints.Length; i++)
+        {
+            waypoints[i].SetActive(true);
+        }
+    }
+
     // Runs when the player runs out of time
     public void PlayerFailed()
     {
@@ -200,6 +264,7 @@ public class GameManager : MonoBehaviour
     public void WaypointCount()
     {
         collectedWaypoints++;
+        currentWaypoint++;
     }
 
     public void UpdateLapTime()
@@ -221,7 +286,26 @@ public class GameManager : MonoBehaviour
         coinAmountText.text = coinAmount.ToString();
     }
 
-
+    public void RespawnAtWaypoint()
+    {
+        if(currentWaypoint == 0)
+        {
+            PositionPlayer();
+        } else if (currentWaypoint == 1) {
+            player.transform.position = waypoint1.position;
+            player.transform.rotation = waypoint1.rotation;
+        }
+        else if (currentWaypoint == 2) {
+            player.transform.position = waypoint2.position;
+            player.transform.rotation = waypoint2.rotation;
+        }
+        else if (currentWaypoint == 3)
+        {
+            player.transform.position = waypoint3.position;
+            player.transform.rotation = waypoint3.rotation;
+        }
+        
+    }
 
     //This section creates a simple Graphical User Interface (GUI)
     void OnGUI()
@@ -265,6 +349,7 @@ public class GameManager : MonoBehaviour
                 // public GameObject restartGameScreen;
         }
 
+       //TODO: make a new ui extension of this
         // If the player has failed the time challenge
         if (playerFailed)
         {
@@ -272,24 +357,5 @@ public class GameManager : MonoBehaviour
             GUI.Box(new Rect(Screen.width / 2 - 65, Screen.height - 115, 130, 40), "Coins collected:");
             GUI.Label(new Rect(Screen.width / 2 - 30, 470, 110, 70), coinAmount.ToString());
         }
-        // If the game is running, show the current time in time trial mode
-        else if (isRunning && timeTrialMode)
-        {
-            GUI.Box(new Rect(Screen.width / 2 - 65, Screen.height - 115, 130, 40), "Time left");
-            GUI.Label(new Rect(Screen.width / 2 - 10, Screen.height - 100, 20, 30), ((int)timeLeft).ToString());
-            //Box for coin collecting
-            GUI.Box(new Rect(Screen.width / 2 - -360, Screen.height - 115, 130, 55), "Coins collected");
-            GUI.Label(new Rect(Screen.width / 2 - -400, Screen.height - 95, 40, 30), coinAmount.ToString());
-        }
-        // If the game is running, show the current time in timer mode
-        else if (isRunning && timerMode)
-        {
-            GUI.Box(new Rect(Screen.width / 2 - 65, Screen.height - 115, 130, 40), "Player time");
-            GUI.Label(new Rect(Screen.width / 2 - 10, Screen.height - 100, 20, 30), ((int)timePassed).ToString());
-            //Box for coin collecting
-            GUI.Box(new Rect(Screen.width / 2 - -360, Screen.height - 115, 130, 55), "Coins collected");
-            GUI.Label(new Rect(Screen.width / 2 - -400, Screen.height - 95, 40, 30), coinAmount.ToString());
-        }
-
     }
 }

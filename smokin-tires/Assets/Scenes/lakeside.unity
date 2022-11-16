@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 2664218}
   - component: {fileID: 2664217}
   m_Layer: 5
-  m_Name: ScoreTAb
+  m_Name: ScoreGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6585,7 +6585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 296, y: 198}
+  m_AnchoredPosition: {x: 300, y: 199.8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &157718629
@@ -12871,14 +12871,23 @@ MonoBehaviour:
   - {fileID: 1079203189}
   - {fileID: 4735345557347377011}
   - {fileID: 496217729}
+  waypoint1: {fileID: 603019686}
+  waypoint2: {fileID: 752773647}
+  waypoint3: {fileID: 1340975986}
   startScreen: {fileID: 1584914074}
   restartGameScreen: {fileID: 976978512}
+  tabScreen: {fileID: 874129090}
   lapTimeText: {fileID: 791628779}
   currentTimeText: {fileID: 1110265765}
   coinAmountText: {fileID: 1012705600}
   scoreboardText: {fileID: 1957903212}
   coinAmount: 0
+  waypoints:
+  - {fileID: 603019685}
+  - {fileID: 752773646}
+  - {fileID: 1340975985}
   collectedWaypoints: 0
+  currentWaypoint: 0
   carIndex: 0
 --- !u!4 &268594909
 Transform:
@@ -13199,6 +13208,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 315162671}
   - {fileID: 428566103}
   - {fileID: 1078093249}
   - {fileID: 654081914}
@@ -13206,7 +13216,6 @@ Transform:
   - {fileID: 1478365726}
   - {fileID: 723220265}
   - {fileID: 1729786146}
-  - {fileID: 315162671}
   - {fileID: 713276126}
   - {fileID: 192738147}
   - {fileID: 712184405}
@@ -13413,7 +13422,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &302757986
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13716,7 +13725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &315162671
 Transform:
   m_ObjectHideFlags: 0
@@ -13730,7 +13739,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 277239963}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 4.13, y: -258.57, z: 0}
 --- !u!81 &315162672
 AudioListener:
@@ -15405,7 +15414,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 277239963}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &455314571
 GameObject:
@@ -23227,7 +23236,7 @@ Transform:
   - {fileID: 654081918}
   - {fileID: 654081912}
   m_Father: {fileID: 277239963}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &654081918
 Transform:
@@ -24701,7 +24710,7 @@ Transform:
   - {fileID: 2062335783}
   - {fileID: 4033266118780507261}
   m_Father: {fileID: 277239963}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &723684545
 MeshRenderer:
@@ -25507,7 +25516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &791628778
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25611,7 +25620,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 1.310276, y: 0, z: 1.3102608, w: -111.37328}
+  m_margin: {x: 1.310276, y: 0, z: 1.3102608, w: -2.767292}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -31700,7 +31709,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 277239963}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &916278935
 MonoBehaviour:
@@ -37749,7 +37758,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -0.000011491367, w: -10.482197}
+  m_margin: {x: 0, y: 0, z: -0.000011491367, w: -0.526701}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -38633,7 +38642,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -88, y: 179}
+  m_AnchoredPosition: {x: -298, y: 199.8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1068865675
@@ -38760,7 +38769,7 @@ Transform:
   - {fileID: 1304879087}
   - {fileID: 1304879081}
   m_Father: {fileID: 277239963}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1078093251
 Transform:
@@ -39321,7 +39330,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -85, y: 127}
+  m_AnchoredPosition: {x: -295, y: 147.80002}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1110265765
@@ -43424,7 +43433,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 277239963}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1485520606
 GameObject:
@@ -46254,7 +46263,7 @@ Transform:
   - {fileID: 983598681}
   - {fileID: 759426651}
   m_Father: {fileID: 277239963}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1740103951
 GameObject:
@@ -71000,9 +71009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e78f3158c7cf1c45837188dab133ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioPlayer: {fileID: 159320808}
   gameManager: {fileID: 257297666}
-  audioManager: {fileID: 552446853}
 --- !u!4 &7019456508179837299
 Transform:
   m_ObjectHideFlags: 0

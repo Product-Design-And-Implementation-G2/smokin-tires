@@ -12,7 +12,8 @@ public class WayPointDestroyer : MonoBehaviour
         if (other.gameObject.layer == 8)
         {
             //destroy waypoint layer objects
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
+            //Destroy(other.gameObject);
             IncrementWaypointAmount();
         }
     }
