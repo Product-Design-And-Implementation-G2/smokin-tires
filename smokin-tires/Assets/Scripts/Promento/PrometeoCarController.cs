@@ -11,6 +11,7 @@ something useful for your game. Best regards, Mena.
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PrometeoCarController : MonoBehaviour
 {
@@ -89,7 +90,7 @@ public class PrometeoCarController : MonoBehaviour
       [Space(10)]
       //The following variable lets you to set up a UI text to display the speed of your car.
       public bool useUI = false;
-      public Text carSpeedText; // Used to store the UI object that is going to show the speed of the car.
+      public TMP_Text carSpeedText; // Used to store the UI object that is going to show the speed of the car.
 
     //SOUNDS
 
@@ -382,6 +383,10 @@ public class PrometeoCarController : MonoBehaviour
           }
       }
 
+    }
+    public int ReturnCarSpeed()
+    {
+        return Mathf.RoundToInt(Mathf.Abs(carSpeed));
     }
 
     // This method controls the car sounds. For example, the car engine will sound slow when the car speed is low because the

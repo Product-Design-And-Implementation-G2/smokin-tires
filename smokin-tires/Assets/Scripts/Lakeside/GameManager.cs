@@ -8,7 +8,6 @@ using System;
 public class GameManager : MonoBehaviour
 {
     //game modes
-    private bool timeTrialMode = false;
     private bool timerMode = true;
 
     [SerializeField] GameObject finishZone;
@@ -31,7 +30,6 @@ public class GameManager : MonoBehaviour
     public TMP_Text coinAmountText;
     public TMP_Text scoreboardText;
 
-
     // Flags that control the state of the game
     private float timeLeft;
     private float timePassed;
@@ -47,8 +45,8 @@ public class GameManager : MonoBehaviour
     public int collectedWaypoints;
     public int currentWaypoint;
 
-    // So that we can access the player's controller from this script
-    private PrometeoCarController carController;
+    //used for determening whether player is going slow enough to respawn
+    public int currentCarSpeed;
 
     //car index
     public int carIndex;
@@ -56,12 +54,14 @@ public class GameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Debug.Log("carindex " + PlayerPreferences.carIndex);
         //choose the right car with carindex
         UpdateCarIndex();
 
         //set cinematic camera audiolistener off
         camera.GetComponent<AudioListener>().enabled = false;
+
+        //current car speed
+        currentCarSpeed = 0;
 
         //set current spawn waypoint at spawn
         currentWaypoint = 0;
@@ -101,13 +101,6 @@ public class GameManager : MonoBehaviour
 
         //Tell Unity to allow character controllers to have their position set directly. This will enable our respawn to work
         Physics.autoSyncTransforms = true;
-
-        // Finds the Car Controller script on the Player
-        //carController = player.GetComponent<PrometeoCarController>();
-
-        // Disables controls before the game starts.
-        //TODO: Fix erros with this carController when launching the game
-        //carController.enabled = false;
 
         //set finish zone un-active
         finishZone.SetActive(false);
@@ -154,9 +147,6 @@ public class GameManager : MonoBehaviour
 
         // Move the player to the spawn point, and allow it to move.
         PositionPlayer();
-        
-        //TODO: this needs to be fixed
-        //carController.enabled = true;
 
         //set finish zone un-active
         finishZone.SetActive(false);
@@ -182,14 +172,6 @@ public class GameManager : MonoBehaviour
         {
             timePassed += Time.deltaTime;
         } 
-        else if (isRunning && timeTrialMode)
-        {
-            timeLeft -= Time.deltaTime;
-            if (timeLeft < 0)
-            {
-               PlayerFailed();
-            }
-        }
 
         //if player presses down tab, they can see the current lap times
         if (Input.GetKey("tab"))
@@ -227,17 +209,9 @@ public class GameManager : MonoBehaviour
         UpdateScoreboard();
         timePassed = 0;
         UpdateCurrentTime();
-
+        NewLap();
         //isRunning = false;
         //isFinished = true;
-        //carController.enabled = false;
-
-        NewLap();
-    }
-
-    public void FinishedGame2()
-    {
-        // TODO: make this into a function that runs when player has completed 5 laps
     }
 
     private void EnableWaypoints()
@@ -246,14 +220,6 @@ public class GameManager : MonoBehaviour
         {
             waypoints[i].SetActive(true);
         }
-    }
-
-    // Runs when the player runs out of time
-    public void PlayerFailed()
-    {
-        isRunning = false;
-        playerFailed = true;
-        //carController.enabled = false;
     }
 
     public void GetCoins(int receivedCoinAmount)
@@ -288,74 +254,32 @@ public class GameManager : MonoBehaviour
 
     public void RespawnAtWaypoint()
     {
-        if(currentWaypoint == 0)
+        currentCarSpeed = player.GetComponent<PrometeoCarController>().ReturnCarSpeed();
+        Debug.Log(currentCarSpeed);
+
+        if (currentWaypoint == 0 && currentCarSpeed < 10)
         {
             PositionPlayer();
-        } else if (currentWaypoint == 1) {
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        } else if (currentWaypoint == 1 && currentCarSpeed < 10) {
             player.transform.position = waypoint1.position;
             player.transform.rotation = waypoint1.rotation;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
-        else if (currentWaypoint == 2) {
+        else if (currentWaypoint == 2 && currentCarSpeed < 10) {
             player.transform.position = waypoint2.position;
             player.transform.rotation = waypoint2.rotation;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
-        else if (currentWaypoint == 3)
+        else if (currentWaypoint == 3 && currentCarSpeed < 10)
         {
             player.transform.position = waypoint3.position;
             player.transform.rotation = waypoint3.rotation;
-        }
-        
-    }
-
-    //This section creates a simple Graphical User Interface (GUI)
-    void OnGUI()
-    {
-        if (!isRunning)
-        {
-            string message;
-
-            if (isFinished) { 
-                //message = "Click or Press Enter to Play Again"; 
-
-            }
-            //else { message = "Click or Press Enter to Play"; }
-
-            //Define a new rectangle for the UI on the screen
-            //Rect startButton = new Rect(Screen.width / 2 - 120, Screen.height / 2, 240, 30);
-            /*
-            if (GUI.Button(startButton, message) || Input.GetKeyDown(KeyCode.Return))
-            {
-                //resets movement
-                // TODO: freeze vehicle velocity or slow it down dramatically. It must be zero when player is spawned back at a spawnpoint.
-                //start the game if the user chooses to play
-                StartGame();
-            }*/
-        }
-
-        // If the player finished the game in time, show their time
-       /*
-        * if (isFinished)
-        {
-            GUI.Box(new Rect(Screen.width / 2 - 110, 80, 220, 60), "YOU WIN! Your Time was:");
-            GUI.Label(new Rect(Screen.width / 2 - 0, 100, 50, 50), (((int)timePassed).ToString()));
-            GUI.Box(new Rect(Screen.width / 2 - 110, 150, 220, 70), "Coins collected:");
-            GUI.Label(new Rect(Screen.width / 2 - 0, 170, 110, 70), coinAmount.ToString());
-        }*/
-       if( isFinished)
-        {
-            //restartGameScreen.SetActive(true);
-
-                //public GameObject startScreen;
-                // public GameObject restartGameScreen;
-        }
-
-       //TODO: make a new ui extension of this
-        // If the player has failed the time challenge
-        if (playerFailed)
-        {
-            GUI.Box(new Rect(Screen.width / 2 - 90, 150, 180, 70), "You failed");
-            GUI.Box(new Rect(Screen.width / 2 - 65, Screen.height - 115, 130, 40), "Coins collected:");
-            GUI.Label(new Rect(Screen.width / 2 - 30, 470, 110, 70), coinAmount.ToString());
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
     }
 }
