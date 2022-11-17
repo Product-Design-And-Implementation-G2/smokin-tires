@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class LakesideSettingsMenu : MonoBehaviour
 {
+    //TODO: Change name of the script to SettingsMenu
     public AudioMixer audioMixer;
 
     Resolution[] resolutions;
