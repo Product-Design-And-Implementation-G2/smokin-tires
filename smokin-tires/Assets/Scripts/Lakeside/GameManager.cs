@@ -1,15 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using System;
 
 public class GameManager : MonoBehaviour
 {
-    //game modes
-    private bool timerMode = true;
-
     [SerializeField] GameObject finishZone;
     [SerializeField] private GameObject camera;
 
@@ -31,13 +26,10 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreboardText;
 
     // Flags that control the state of the game
-    private float timeLeft;
     private float timePassed;
     private bool isRunning = false;
-    private bool isFinished = false;
-    private bool playerFailed = false;
-
-    //coin collection
+    
+    //players collected coins
     public int coinAmount;
 
     //waypoints
@@ -59,9 +51,6 @@ public class GameManager : MonoBehaviour
 
         //set cinematic camera audiolistener off
         camera.GetComponent<AudioListener>().enabled = false;
-
-        //current car speed
-        currentCarSpeed = 0;
 
         //set current spawn waypoint at spawn
         currentWaypoint = 0;
@@ -117,7 +106,6 @@ public class GameManager : MonoBehaviour
         carIndex = PlayerPreferences.carIndex;
     }
 
-
     //This resets to game back to the way it started
     public void StartGame()
     {
@@ -132,18 +120,11 @@ public class GameManager : MonoBehaviour
         // TODO: Fix the map camera
         player.SetActive(true);
 
-        // TODO: Make these game modes into their own methods
-
-        //time trial game mode
-        timeLeft = 30;
-
         //timer mode
         timePassed = 0;
 
         //set bool variables to wanted states
         isRunning = true;
-        isFinished = false;
-        playerFailed = false;
 
         // Move the player to the spawn point, and allow it to move.
         PositionPlayer();
@@ -157,7 +138,6 @@ public class GameManager : MonoBehaviour
         EnableWaypoints();
         currentWaypoint = 0;
         finishZone.SetActive(false);
-        
     }
 
     // Update is called once per frame
@@ -168,7 +148,7 @@ public class GameManager : MonoBehaviour
             UpdateCurrentTime();
         }
         // Add time to the clock if the game is running
-        if (isRunning && timerMode)
+        if (isRunning)
         {
             timePassed += Time.deltaTime;
         } 
@@ -180,11 +160,6 @@ public class GameManager : MonoBehaviour
         } else
         {
             tabScreen.SetActive(false);
-        }
-
-        if (Input.GetKey("p"))
-        {
-            RespawnAtWaypoint();
         }
 
         //check if player has all 3 necessary waypoints to enter the finish zone
@@ -211,7 +186,6 @@ public class GameManager : MonoBehaviour
         UpdateCurrentTime();
         NewLap();
         //isRunning = false;
-        //isFinished = true;
     }
 
     private void EnableWaypoints()
@@ -254,27 +228,27 @@ public class GameManager : MonoBehaviour
 
     public void RespawnAtWaypoint()
     {
-        currentCarSpeed = player.GetComponent<PrometeoCarController>().ReturnCarSpeed();
-        Debug.Log(currentCarSpeed);
+        //currentCarSpeed = player.GetComponent<PrometeoCarController>().ReturnCarSpeed();
+        //Debug.Log(currentCarSpeed);
 
-        if (currentWaypoint == 0 && currentCarSpeed < 10)
+        if (currentWaypoint == 0)
         {
             PositionPlayer();
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        } else if (currentWaypoint == 1 && currentCarSpeed < 10) {
+        } else if (currentWaypoint == 1) {
             player.transform.position = waypoint1.position;
             player.transform.rotation = waypoint1.rotation;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
-        else if (currentWaypoint == 2 && currentCarSpeed < 10) {
+        else if (currentWaypoint == 2) {
             player.transform.position = waypoint2.position;
             player.transform.rotation = waypoint2.rotation;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
-        else if (currentWaypoint == 3 && currentCarSpeed < 10)
+        else if (currentWaypoint == 3)
         {
             player.transform.position = waypoint3.position;
             player.transform.rotation = waypoint3.rotation;
