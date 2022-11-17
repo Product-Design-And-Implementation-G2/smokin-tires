@@ -22,7 +22,7 @@ public class AdvancedCameraControlScript : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {
+    {/*
         if(Input.GetKeyDown(KeyCode.Tab))
         {
             if(locationIndicator >= 4 || locationIndicator < 2)
@@ -35,7 +35,7 @@ public class AdvancedCameraControlScript : MonoBehaviour
 
             transform.position = camLocation[locationIndicator].position * (1 - smoothTime) + transform.position * smoothTime;
             transform.LookAt(camLocation[1].transform);
-        }
+        } */
 
 
     }

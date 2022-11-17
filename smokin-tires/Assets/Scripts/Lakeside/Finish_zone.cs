@@ -6,9 +6,7 @@ using UnityEngine.Audio;
 public class Finish_zone : MonoBehaviour
 {
 	//victory sound
-	public AudioSource audioPlayer;
 	public GameManager gameManager;
-	public AudioManager audioManager;
 
 	// When an object enters the finish zone, let the
 	// game manager know that the current game has ended
@@ -16,7 +14,7 @@ public class Finish_zone : MonoBehaviour
 	{
 		//audioPlayer.Play();
 		//FindObjectOfType<GameManager>().FinishedGame();
-		//audioManager.
 		gameManager.FinishedGame();
+		this.enabled = false;
 	}
 }
