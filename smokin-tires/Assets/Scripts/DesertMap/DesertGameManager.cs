@@ -181,7 +181,7 @@ public class DesertGameManager : MonoBehaviour
     // Runs when the player enters the finish zone
     public void FinishedGame()
     {
-        UpdateLapTime();
+        //UpdateLapTime();
         UpdateScoreboard();
         timePassed = 0;
         UpdateCurrentTime();

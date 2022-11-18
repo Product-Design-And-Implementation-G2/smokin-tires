@@ -5,9 +5,8 @@ using UnityEngine.Audio;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class LakesideSettingsMenu : MonoBehaviour
+public class ChangeOptionsMenu : MonoBehaviour
 {
-    //TODO: Change name of the script to SettingsMenu
     public AudioMixer audioMixer;
 
     Resolution[] resolutions;
@@ -15,8 +14,17 @@ public class LakesideSettingsMenu : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
     public TMP_Dropdown graphicsDropdown;
 
+    [SerializeField] private GameObject mainMenuCamera2;
+    [SerializeField] private GameObject garageCamera2;
+
+    //[SerializeField] private new GameObject camera;
+
     private void Start()
     {
+        //set up cameras
+        mainMenuCamera2.SetActive(true);
+        garageCamera2.SetActive(false);
+
         //set quality settings
         int qualityLevel = QualitySettings.GetQualityLevel();
         graphicsDropdown.value = qualityLevel;
@@ -46,6 +54,11 @@ public class LakesideSettingsMenu : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
     }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
     public void QuitGame()
     {
         Debug.Log("Game successfully closed");
@@ -54,7 +67,7 @@ public class LakesideSettingsMenu : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("carMixer", volume);
+        audioMixer.SetFloat("BGMMixer", volume);
     } 
     public void SetQuality(int qualityIndex)
     {
@@ -70,5 +83,19 @@ public class LakesideSettingsMenu : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+    public void SwapToCarCamera()
+    {
+        mainMenuCamera2.SetActive(false);
+        garageCamera2.SetActive(true);
+        mainMenuCamera2.GetComponent<AudioListener>().enabled = false;
+        garageCamera2.GetComponent<AudioListener>().enabled = true;
+    }
+    public void SwapToMenuCamera()
+    {
+        mainMenuCamera2.SetActive(true);
+        garageCamera2.SetActive(false);
+        mainMenuCamera2.GetComponent<AudioListener>().enabled = true;
+        garageCamera2.GetComponent<AudioListener>().enabled = false;
     }
 }
