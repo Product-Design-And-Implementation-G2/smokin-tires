@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class SettingsMenu : MonoBehaviour
+public class ChangeOptionsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
 

@@ -5,8 +5,9 @@ using UnityEngine.Audio;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class LakesideSettingsMenu : MonoBehaviour
+public class SettingsOptions : MonoBehaviour
 {
+    //TODO: Change name of the script to SettingsMenu
     public AudioMixer audioMixer;
 
     Resolution[] resolutions;

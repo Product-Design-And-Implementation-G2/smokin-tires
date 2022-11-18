@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2664216
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13191,7 +13191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 277239963}
   m_Layer: 0
-  m_Name: Lakeside
+  m_Name: TerrainObjects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14151,7 +14151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &332806249
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38561,7 +38561,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1768788415}
-        m_TargetAssemblyTypeName: LakesideSettingsMenu, Assembly-CSharp
+        m_TargetAssemblyTypeName: SettingsOptions, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
@@ -44735,8 +44735,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
+      - m_Target: {fileID: 1768788415}
+        m_TargetAssemblyTypeName: SettingsOptions, Assembly-CSharp
         m_MethodName: SetFullscreen
         m_Mode: 0
         m_Arguments:
@@ -46967,7 +46967,7 @@ GameObject:
   - component: {fileID: 1768788414}
   - component: {fileID: 1768788415}
   m_Layer: 5
-  m_Name: UI-Canvas
+  m_Name: Lakeside-canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47087,9 +47087,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4945ea41a573cb458a083224acc0e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 50e7249faa8f88249a9040f50a5fcd0c, type: 2}
-  resolutionDropdown: {fileID: 6606850990392112406}
-  graphicsDropdown: {fileID: 6606850991080114154}
+  audioMixer: {fileID: 0}
+  resolutionDropdown: {fileID: 0}
+  graphicsDropdown: {fileID: 0}
 --- !u!1 &1769633275
 GameObject:
   m_ObjectHideFlags: 0
@@ -68992,8 +68992,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
+      - m_Target: {fileID: 1768788415}
+        m_TargetAssemblyTypeName: SettingsOptions, Assembly-CSharp
         m_MethodName: SetResolution
         m_Mode: 0
         m_Arguments:
@@ -70301,8 +70301,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
+      - m_Target: {fileID: 1768788415}
+        m_TargetAssemblyTypeName: SettingsOptions, Assembly-CSharp
         m_MethodName: SetQuality
         m_Mode: 0
         m_Arguments:
