@@ -1,8 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:smokin-tires/Assets/New Terrain 2.asset.meta
 guid: 0bbc7dd6b15aed14ea30b311b645a36f
 NativeFormatImporter:
+========
+guid: dc505e1a2a6f430428ab10bddaf27a31
+DefaultImporter:
+>>>>>>>> test:smokin-tires/Assets/EasyRoads3D/SRP Support Packages/HDRP_7_3_1.unitypackage.meta
   externalObjects: {}
-  mainObjectFileID: 15600000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:smokin-tires/Assets/InternalAssets/LoadingScreen.prefab.meta
 guid: 3a404702ac903f447815b4b7bf07e046
 PrefabImporter:
+========
+guid: 342ef5ff23c07aa47b9494bde0d9a521
+DefaultImporter:
+>>>>>>>> test:smokin-tires/Assets/EasyRoads3D/SRP Support Packages/HDRP_10_3_2.unitypackage.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
