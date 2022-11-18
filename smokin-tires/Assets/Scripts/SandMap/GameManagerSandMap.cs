@@ -21,7 +21,7 @@ public class GameManagerSandMap : MonoBehaviour
     private int coinAmount;
 
     // So that we can access the player's controller from this script
-    private CarController carController;
+    //private CarController carController;
 
     // Use this for initialization
     void Start()
@@ -30,10 +30,10 @@ public class GameManagerSandMap : MonoBehaviour
         Physics.autoSyncTransforms = true;
 
         // Finds the Car Controller script on the Player
-        carController = player.GetComponent<CarController>();
+        //carController = player.GetComponent<CarController>();
 
         // Disables controls before the game starts.
-        carController.enabled = false;
+        //carController.enabled = false;
 
     }
 
@@ -48,7 +48,7 @@ public class GameManagerSandMap : MonoBehaviour
 
         // Move the player to the spawn point, and allow it to move.
         PositionPlayer();
-        carController.enabled = true;
+        //carController.enabled = true;
     }
 
     // Update is called once per frame
@@ -79,14 +79,14 @@ public class GameManagerSandMap : MonoBehaviour
     {
         isRunning = false;
         isFinished = true;
-        carController.enabled = false;
+        //carController.enabled = false;
     }
     // Runs when the player runs out of time
     public void PlayerFailed()
     {
         isRunning = false;
         playerFailed = true;
-        carController.enabled = false;
+        //carController.enabled = false;
     }
 
     public void GetCoins(int receivedCoinAmount)

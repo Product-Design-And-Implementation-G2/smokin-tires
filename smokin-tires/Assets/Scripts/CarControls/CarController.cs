@@ -50,7 +50,17 @@ public class CarController : MonoBehaviour
     {
         horizontalInput = Input.GetAxis(HORIZONTAL);
         verticalInput = Input.GetAxis(VERTICAL);
+        Debug.Log("inputs here");
+        Debug.Log(horizontalInput);
+        Debug.Log(verticalInput);
         isBreaking = Input.GetKey(KeyCode.Space);
+    }
+    public void SetInputVector(Vector2 inputVector)
+    {
+        Debug.Log("inputvector");
+        Debug.Log(inputVector);
+        //verticalInput = inputVector.x;
+        //horizontalInput = inputVector.y;
     }
 
     private void HandleMotor()
@@ -103,8 +113,4 @@ public class CarController : MonoBehaviour
     {
         return carRigidbody.velocity.magnitude;
     }
-
-   
-
-    
 }
