@@ -40,7 +40,7 @@ public class CarController : MonoBehaviour
     private void FixedUpdate()
     {
         //wasd keys
-        GetInput();
+        //GetInput();
         HandleMotor();
         HandleSteering();
         UpdateWheels();
@@ -48,19 +48,23 @@ public class CarController : MonoBehaviour
 
     private void GetInput()
     {
-        horizontalInput = Input.GetAxis(HORIZONTAL);
-        verticalInput = Input.GetAxis(VERTICAL);
-        Debug.Log("inputs here");
-        Debug.Log(horizontalInput);
-        Debug.Log(verticalInput);
-        isBreaking = Input.GetKey(KeyCode.Space);
+        //horizontalInput = Input.GetAxis(HORIZONTAL);
+        //verticalInput = Input.GetAxis(VERTICAL);
+        //isBreaking = Input.GetKey(KeyCode.Space);
     }
     public void SetInputVector(Vector2 inputVector)
     {
-        Debug.Log("inputvector");
-        Debug.Log(inputVector);
-        //verticalInput = inputVector.x;
-        //horizontalInput = inputVector.y;
+       //Debug.Log("inputvector");
+       // Debug.Log(inputVector.x);
+       // Debug.Log(inputVector.y);
+      //  verticalInput = inputVector.x;
+     //   horizontalInput = inputVector.y;
+    }
+
+    public void SetInputs(float forwardAmount, float turnAmount)
+    {
+            verticalInput = forwardAmount;
+          horizontalInput = turnAmount;
     }
 
     private void HandleMotor()
@@ -77,7 +81,7 @@ public class CarController : MonoBehaviour
         }
     }
 
-    private void ApplyBreaking()
+    public void ApplyBreaking()
     {
         frontRightWheelCollider.brakeTorque = currentBreakForce;
         frontLeftWheelCollider.brakeTorque = currentBreakForce;
@@ -105,6 +109,7 @@ public class CarController : MonoBehaviour
         Vector3 pos;
         Quaternion rot;
         wheelCollider.GetWorldPose(out pos, out rot);
+
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
     }
@@ -112,5 +117,10 @@ public class CarController : MonoBehaviour
     public float GetVelocityMagnitude()
     {
         return carRigidbody.velocity.magnitude;
+    }
+
+    public double GetCarSpeed()
+    {
+        return carRigidbody.velocity.magnitude * 3.6;
     }
 }
