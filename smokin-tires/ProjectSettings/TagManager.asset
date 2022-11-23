@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - AiDriver
+  - Competitor_lakeside
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - groundLayer
   - Coin
   - Waypoint
-  - 
+  - AI_Waypoint
   - 
   - 
   - 

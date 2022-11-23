@@ -9,7 +9,14 @@ public class Respawn_zone : MonoBehaviour
 	// Triggers when the player enters the water
 	void OnTriggerEnter(Collider other)
 	{
-		gameManager.PositionPlayer();
+		if (other.gameObject.tag == "Player")
+		{ 
+			gameManager.PositionPlayer();
+		} else if (other.gameObject.tag == "AiDriver")
+		{
+			gameManager.PositionAICar();
+		}
+			
 	}
 }
 
