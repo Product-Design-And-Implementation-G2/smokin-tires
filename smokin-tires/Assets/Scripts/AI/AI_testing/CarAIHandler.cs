@@ -23,8 +23,8 @@ public class CarAIHandler : MonoBehaviour
 
     private void Update()
     {
-        //Sensors();
-        Debug.Log(carController.GetCarSpeed());
+        Sensors();
+        //Debug.Log(carController.GetCarSpeed());
         //SetTargetPosition(targetPositionTransform.position);
         SetTargetPosition(gameManager.ReturnCurrentWaypoint().position);
         float forwardAmount = 0f;
@@ -32,6 +32,7 @@ public class CarAIHandler : MonoBehaviour
 
         float reachedTargetDistance = 7f;
         float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+
         if(distanceToTarget > reachedTargetDistance)
         {
             //still too far, keep going
@@ -44,17 +45,19 @@ public class CarAIHandler : MonoBehaviour
             if (dot > 0)
             {
                 //target in front
-                forwardAmount = 1f;
+                forwardAmount = 5f;
 
-                float stoppingDistance = 50f;
-                float stoppingSpeed = 50f;
+                float stoppingDistance = 35f;
+                float stoppingSpeed = 35f;
                 if (distanceToTarget < stoppingDistance && carController.GetCarSpeed() > stoppingSpeed)
                 {
                     //within stopping distance and moving forward too fast
                     forwardAmount = -1f;
                     carController.ApplyBreaking();
                 }
-            } else {
+                //else if(distanceToTarget < )
+            } else 
+                {
                 //target behind
                 float reverseDistance = 25f;
                 if (distanceToTarget > reverseDistance)
@@ -64,7 +67,7 @@ public class CarAIHandler : MonoBehaviour
                 } else { 
                     forwardAmount = -1f;
                 }
-            }
+                }
 
             float angleToDir = Vector3.SignedAngle(transform.forward, dirToMovePosition, Vector3.up);
 
@@ -81,21 +84,21 @@ public class CarAIHandler : MonoBehaviour
                 turnAmount = 0f;
             }
         } else 
-        {
-            //target reached
-            if (carController.GetCarSpeed() > 10f)
             {
-                forwardAmount = -1f;
-                carController.ApplyBreaking();
-            }
-            else
-            {
-                forwardAmount = 0f;
-            }
+                //target reached
+                if (carController.GetCarSpeed() > 10f)
+                {
+                    forwardAmount = -1f;
+                    carController.ApplyBreaking();
+                }
+                else
+                {
+                    forwardAmount = 0f;
+                }
 
-            forwardAmount = 0f;
-            turnAmount = 0f;
-        }
+                forwardAmount = 0f;
+                turnAmount = 0f;
+            }
 
         carController.SetInputs(forwardAmount, turnAmount);
     }
@@ -104,12 +107,11 @@ public class CarAIHandler : MonoBehaviour
     {
         this.targetPosition = targetPosition;
     }
-/*
+
     [Header("Sensors")]
     public float sensorLength = 3f;
     public float frontSensorPosition = 0.5f;
-    public float leftSideSensorPosition = 0.2f;
-
+    public float leftSideSensorPosition = 0.5f;
 
     private void Sensors()
     {
@@ -139,5 +141,5 @@ public class CarAIHandler : MonoBehaviour
         }
         Debug.DrawLine(sensorStartPos, hit.point);
     }
-    */
+    
 }

@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject[] usersCars;
     public Transform waypoint1;
+
+
+
     public Transform waypoint2;
     public Transform waypoint3;
 
@@ -169,12 +172,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Runs when the player needs to be positioned back at the spawn point
+    //Runs when the player needs to be positioned back at a respawn point
     public void PositionPlayer()
     {
         player.transform.position = spawnPoint.position;
         player.transform.rotation = spawnPoint.rotation;
         Debug.Log("Player positioned");
+    }
+
+    //Runs when the AI needs to be positioned back at a respawn point
+    internal void PositionAICar()
+    {
+
     }
 
     // Runs when the player enters the finish zone
