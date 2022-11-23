@@ -14,7 +14,7 @@ public class FinishZoneWoodland : MonoBehaviour
 			//FindObjectOfType<GameManager>().FinishedGame();
 			gameManager.FinishedGame();
 			this.enabled = false;
-			GameObject.Find("PlayAgainScreen").GetComponent<Canvas>();
+			//GameObject.Find("PlayAgainScreen").GetComponent<Canvas>();
 
 		}
 	}

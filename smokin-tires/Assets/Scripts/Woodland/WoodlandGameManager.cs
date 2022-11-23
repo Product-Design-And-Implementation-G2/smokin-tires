@@ -115,7 +115,7 @@ public class WoodlandGameManager : MonoBehaviour
         EnableWaypoints();
 
         //set map camera un-active before starting
-        camera.SetActive(false);
+        //camera.SetActive(false);
         //set player active before starting
         // TODO: Fix the map camera
         player.SetActive(true);
