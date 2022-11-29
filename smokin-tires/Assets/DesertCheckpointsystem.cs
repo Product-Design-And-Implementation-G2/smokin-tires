@@ -1,18 +1,17 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 using TMPro;
 
-public class CheckpointSystem : MonoBehaviour
+public class DesertCheckpointsystem : MonoBehaviour
 {
 
-    public float []DistanceArrays;
+    public float[] DistanceArrays;
 
-    [Header ("Cars Car01 = Player Car")]
+    [Header("Cars Car01 = Player Car")]
     public GameObject[] usersCars;
-   // public Transform Car01;
+     public Transform Car01;
     public Transform Car02;
     public Transform Car03;
     public Transform Car04;
@@ -29,18 +28,19 @@ public class CheckpointSystem : MonoBehaviour
     public TMP_Text Car04Text;
 
     public GameObject NextCheckPoint;
-    public GameManager gameManager;
+    public DesertGameManager gameManager;
 
     void Start()
     {
         NextCheckPoint.SetActive(false);
     }
 
-    
+
     void Update()
     {
 
         DistanceArrays[0] = Vector3.Distance(transform.position, usersCars[gameManager.carIndex].transform.position);
+        //DistanceArrays[0] = Vector3.Distance(transform.position, Car01.position);
         DistanceArrays[1] = Vector3.Distance(transform.position, Car02.position);
         DistanceArrays[2] = Vector3.Distance(transform.position, Car03.position);
         DistanceArrays[3] = Vector3.Distance(transform.position, Car04.position);
@@ -53,12 +53,14 @@ public class CheckpointSystem : MonoBehaviour
         Fourth = DistanceArrays[3];
 
         float Car01Dist = Vector3.Distance(transform.position, usersCars[gameManager.carIndex].transform.position);
+        //float Car01Dist = Vector3.Distance(transform.position, Car01.position);
         float Car02Dist = Vector3.Distance(transform.position, Car02.position);
         float Car03Dist = Vector3.Distance(transform.position, Car03.position);
         float Car04Dist = Vector3.Distance(transform.position, Car04.position);
 
         #region Car01UI
-        if (Car01Dist == First) {
+        if (Car01Dist == First)
+        {
             Car01Text.text = "1/4";
         }
         if (Car01Dist == Second)
@@ -136,10 +138,11 @@ public class CheckpointSystem : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player") {
+        if (other.tag == "Player")
+        {
+            Debug.Log("Player tag noticed");
             NextCheckPoint.SetActive(true);
             gameObject.SetActive(false);
-           // lapSystem.UpdateWaypointCount();
 
         }
         if (other.tag == "Bluecar")
@@ -156,3 +159,4 @@ public class CheckpointSystem : MonoBehaviour
         }
     }
 }
+

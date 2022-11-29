@@ -6,6 +6,11 @@ TagManager:
   tags:
   - AiDriver
   - Competitor_lakeside
+  - Lap
+  - Bluecar
+  - Yellowcar
+  - Redcar
+  - Playercar
   layers:
   - Default
   - TransparentFX

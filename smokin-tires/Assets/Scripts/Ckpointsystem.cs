@@ -39,6 +39,15 @@ public class Ckpointsystem : MonoBehaviour
         NextCheckPoint.SetActive(false);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            gameObject.SetActive(false);
+            NextCheckPoint.SetActive(true);
+        }
+    }
+
 
     void Update()
     {
@@ -51,7 +60,6 @@ public class Ckpointsystem : MonoBehaviour
         First = Mathf.Min(Car01Dist, Car02Dist, Car03Dist, Car04Dist);
         //finds the largest distance to the next checkpoint, which tells us the car in the fourth/last position
         Fourth = Mathf.Max(Car01Dist, Car02Dist, Car03Dist, Car04Dist);
-
 
         #region First
         if (Car01Dist == First)
@@ -120,8 +128,6 @@ public class Ckpointsystem : MonoBehaviour
         }
         #endregion
 
-
-
         //: TODO switch case this
         #region Second
         if (Car01Dist != First && Car01Dist != Third && Car01Dist != Fourth)
@@ -148,8 +154,5 @@ public class Ckpointsystem : MonoBehaviour
             secondPos.text = "Red";
         }
         #endregion
-
-
-
 }
 }
