@@ -13,12 +13,12 @@ public class CarAiHandler : MonoBehaviour
     Transform targetTransform = null;
 
     //components
-    CarController carController;
+    CarController2 carController;
 
     //Awake is called when the script isntance is being loaded.
     private void Awake()
     {
-       carController = GetComponent<CarController>();
+       carController = GetComponent<CarController2>();
     }
 
     // Start is called before the first frame update

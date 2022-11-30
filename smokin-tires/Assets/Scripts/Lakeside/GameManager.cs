@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreboardText;
     public TMP_Text gameFinishText;
 
+    public AudioSource victorySound;
+
 
     // Flags that control the state of the game
     private float timePassed;
@@ -67,6 +69,10 @@ public class GameManager : MonoBehaviour
     public float TimeAfter = 20f;
 
     public Transform firstAIWaypoint;
+
+
+    public LakeCountdown countdown;
+    public TMP_Text countdownText;
 
     void Start()
     {
@@ -136,6 +142,7 @@ public class GameManager : MonoBehaviour
         //set all cars target position to null
         //SetAICarPositionsToNull();
 
+        countdown.GetComponent<LakeCountdown>().enabled = true;
 
         //set finishpoint unactive
         Debug.Log("set active false to finish point");
@@ -288,6 +295,7 @@ public class GameManager : MonoBehaviour
         if (usersCars[carIndex].GetComponent<LapSystem>().CurrentLaps == 3)
         {
             gameFinishText.text = "You won!!!";
+            victorySound.Play();
         } else
         {
             gameFinishText.text = "You lost!!!";

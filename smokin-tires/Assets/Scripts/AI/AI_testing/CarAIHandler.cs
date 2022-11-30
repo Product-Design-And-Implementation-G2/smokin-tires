@@ -10,14 +10,14 @@ public class CarAIHandler : MonoBehaviour
     [SerializeField] private Path nodes;
     private Transform currentWaypoint;
 
-    private CarController carController;    
+    private CarController2 carController;    
     private Vector3 targetPosition;
     public GameManagerSandMap gameManager;
 
 
     private void Awake()
     {
-        carController = GetComponent<CarController>();
+        carController = GetComponent<CarController2>();
     }
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class DesertGameManager : MonoBehaviour
 {
@@ -67,9 +68,13 @@ public class DesertGameManager : MonoBehaviour
 
     public TMP_Text gameFinishText;
 
+    public Countdown countdown;
+    public TMP_Text countdownText;
 
     void Start()
     {
+  
+        
         //choose the right car with carindex
         UpdateCarIndex();
 
@@ -133,10 +138,10 @@ public class DesertGameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
-        Debug.Log("Start game was run");
-        //set waypoint collected amount to 0 and enable disabled waypoints
-        collectedWaypoints = 0;
-        //EnableWaypoints();
+
+        //play the countdown sequence
+        //countdown = new Countdown();
+        countdown.GetComponent<Countdown>().enabled = true;
 
         FinishObject.SetActive(false);
         isSpawned = false;
@@ -272,6 +277,7 @@ public class DesertGameManager : MonoBehaviour
         {
             gameFinishText.text = "You lost!!!";
         }
+        countdown.GetComponent<Countdown>().enabled = false;
         Time.timeScale = 0.25f;
     }
 
@@ -346,5 +352,9 @@ public class DesertGameManager : MonoBehaviour
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
+    }
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
