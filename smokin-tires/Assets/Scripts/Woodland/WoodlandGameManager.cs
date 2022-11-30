@@ -37,9 +37,6 @@ public class WoodlandGameManager : MonoBehaviour
     public int collectedWaypoints;
     public int currentWaypoint;
 
-    //used for determening whether player is going slow enough to respawn
-    public int currentCarSpeed;
-
     //car index
     public int carIndex;
 
@@ -231,8 +228,6 @@ public class WoodlandGameManager : MonoBehaviour
 
     public void RespawnAtWaypoint()
     {
-        currentCarSpeed = player.GetComponent<PrometeoCarController>().ReturnCarSpeed();
-        Debug.Log(currentCarSpeed);
 
         if (currentWaypoint == 0)
         {

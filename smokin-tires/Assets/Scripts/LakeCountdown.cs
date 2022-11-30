@@ -15,6 +15,7 @@ public class LakeCountdown : MonoBehaviour
     public GameManager gameManager;
 
     public GameObject lapTimer;
+    public PauseMenu pauseMenu;
 
     void Start()
     {
@@ -57,6 +58,8 @@ public class LakeCountdown : MonoBehaviour
         {
             aiCars[i].GetComponent<UnityStandardAssets.Vehicles.Car.CarController>().enabled = true;
         }
+        gameManager.isRunning = true;
+        pauseMenu.isRunning = true;
 
     }
 }

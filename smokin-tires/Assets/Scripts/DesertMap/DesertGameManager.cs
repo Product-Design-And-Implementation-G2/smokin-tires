@@ -45,7 +45,7 @@ public class DesertGameManager : MonoBehaviour
 
     // Flags that control the state of the game
     private float timePassed;
-    private bool isRunning = false;
+    public bool isRunning = false;
 
     //players collected coins
     public int coinAmount;
@@ -73,8 +73,6 @@ public class DesertGameManager : MonoBehaviour
 
     void Start()
     {
-  
-        
         //choose the right car with carindex
         UpdateCarIndex();
 
@@ -164,7 +162,7 @@ public class DesertGameManager : MonoBehaviour
         timePassed = 0;
 
         //set bool variables to wanted states
-        isRunning = true;
+        //isRunning = true;
 
         // Move the player to the spawn point, and allow it to move.
         PositionPlayer();
@@ -224,36 +222,32 @@ public class DesertGameManager : MonoBehaviour
         if (isRunning)
         {
             UpdateCurrentTime();
-        }
-        // Add time to the clock if the game is running
-        if (isRunning)
-        {
             timePassed += Time.deltaTime;
-        }
 
-        //if player presses down tab, they can see the current lap times
-        if (Input.GetKey("tab"))
-        {
-            tabScreen.SetActive(true);
-        }
-        else
-        {
-            tabScreen.SetActive(false);
+            //if player presses down tab, they can see the current lap times
+            if (Input.GetKey("tab"))
+            {
+                tabScreen.SetActive(true);
+            }
+            else
+            {
+                tabScreen.SetActive(false);
+            }
+
+            TimeAfter = TimeAfter - Time.deltaTime;
+            if (TimeAfter <= 0 && isSpawned == false)
+            {
+                Debug.Log("Spawn lap object");
+                FinishObject.SetActive(true);
+                TimeAfter = 20f;
+                isSpawned = true;
+            }
         }
 
         //check if player has all 3 necessary waypoints to enter the finish zone
         if (collectedWaypoints == 3)
         {
             finishZone.SetActive(true);
-        }
-
-        TimeAfter = TimeAfter - Time.deltaTime;
-        if (TimeAfter <= 0 && isSpawned == false)
-        {
-            Debug.Log("Spawn lap object");
-            FinishObject.SetActive(true);
-            TimeAfter = 20f;
-            isSpawned = true;
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -34,10 +35,9 @@ public class GameManager : MonoBehaviour
 
     public AudioSource victorySound;
 
-
     // Flags that control the state of the game
     private float timePassed;
-    private bool isRunning = false;
+    public bool isRunning = false;
     
     //players collected coins
     public int coinAmount;
@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
         timePassed = 0f;
 
         //set bool variables to wanted states
-        isRunning = true;
+        //isRunning = true;
 
         //clear the scoreboard tab for a new game
         scoreboardText.text = "";
@@ -226,23 +226,24 @@ public class GameManager : MonoBehaviour
         if(isRunning)
         {
             UpdateCurrentTime();
+            TimeAfter = TimeAfter - Time.deltaTime;
         }
         // Add time to the clock if the game is running
         if (isRunning)
         {
             timePassed += Time.deltaTime;
+
+            //if player presses down tab, they can see the current lap times
+            if (Input.GetKey("tab"))
+            {
+                tabScreen.SetActive(true);
+            }
+            else
+            {
+                tabScreen.SetActive(false);
+            }
         } 
 
-        //if player presses down tab, they can see the current lap times
-        if (Input.GetKey("tab"))
-        {
-            tabScreen.SetActive(true);
-        } else
-        {
-            tabScreen.SetActive(false);
-        }
-
-        TimeAfter = TimeAfter - Time.deltaTime;
         if (TimeAfter <= 0 && isSpawned == false)
         {
             Debug.Log("Spawn lap object");
@@ -365,5 +366,9 @@ public class GameManager : MonoBehaviour
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
+    }
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
