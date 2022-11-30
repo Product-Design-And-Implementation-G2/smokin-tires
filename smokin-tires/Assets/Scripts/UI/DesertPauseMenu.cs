@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+public class DesertPauseMenu : MonoBehaviour
 {
 
     public static bool GameIsPaused = false;
@@ -12,27 +12,22 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject optionsMenuUI;
 
-    public GameManager gameManager;
-
-    public bool isRunning;
-
-    private void Start()
-    {
-        isRunning = false;
-    }
+    public DesertGameManager gameManager;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (gameManager.isRunning)
         {
-            if(isRunning) { 
-            if(GameIsPaused)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Resume();
-            } else
-            {
-                Pause();
-            }
+                if (GameIsPaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
             }
         }
     }
@@ -67,3 +62,4 @@ public class PauseMenu : MonoBehaviour
     }
 
 }
+

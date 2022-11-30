@@ -14,7 +14,8 @@ public class Countdown : MonoBehaviour
     public DesertGameManager gameManager;
 
     public GameObject lapTimer;
-    
+    //public PauseMenu pauseMenu;
+
     void Start()
     {
         oneTwoThreeSound.Play();
@@ -56,6 +57,7 @@ public class Countdown : MonoBehaviour
         {
             aiCars[i].GetComponent<UnityStandardAssets.Vehicles.Car.CarController>().enabled=true;
         }
+        gameManager.isRunning = true;
 
     }
 }

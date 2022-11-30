@@ -17,6 +17,8 @@ public class ChangeOptionsMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenuCamera2;
     [SerializeField] private GameObject garageCamera2;
 
+    public CycleManager cycleManager;
+
     //[SerializeField] private new GameObject camera;
 
     private void Start()
@@ -57,7 +59,18 @@ public class ChangeOptionsMenu : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        switch (cycleManager.index)
+        {
+            case 0:
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                break;
+            case 1:
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+                break;
+            case 2:
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+                break;
+        }
     }
     public void QuitGame()
     {
@@ -71,8 +84,6 @@ public class ChangeOptionsMenu : MonoBehaviour
     } 
     public void SetQuality(int qualityIndex)
     {
-        //TODO: Set the graphics quality to the user's quality at first
-        //Debug.Log(qualityIndex.ToString());
         QualitySettings.SetQualityLevel(qualityIndex);
     }
     public void SetFullscreen(bool isFullscreen)

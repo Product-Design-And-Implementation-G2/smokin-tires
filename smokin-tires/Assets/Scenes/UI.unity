@@ -1452,7 +1452,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1525715817}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2326,7 +2326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c6928fc959c853446a4efdce2a725b71, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3da10f70f6eddd841b30369c4c177c12, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2995,82 +2995,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 416204, guid: e0c9e7b86067ab64dacba4d674191ebb, type: 3}
   m_PrefabInstance: {fileID: 384309891}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &418995522
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 418995525}
-  - component: {fileID: 418995524}
-  - component: {fileID: 418995523}
-  m_Layer: 5
-  m_Name: unknown_image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &418995523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 418995522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 491ec524ea61dec479f1966570f16d08, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &418995524
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 418995522}
-  m_CullTransparentMesh: 1
---- !u!224 &418995525
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 418995522}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1525715817}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.68817, y: 0.000061035156}
-  m_SizeDelta: {x: 846, y: 479}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &419599456
 GameObject:
   m_ObjectHideFlags: 0
@@ -3993,6 +3917,7 @@ MonoBehaviour:
   graphicsDropdown: {fileID: 1858759150}
   mainMenuCamera2: {fileID: 161459155}
   garageCamera2: {fileID: 1542999966}
+  cycleManager: {fileID: 1823448975}
 --- !u!1 &758023949
 GameObject:
   m_ObjectHideFlags: 0
@@ -4131,7 +4056,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1525715817}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4158,7 +4083,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c188c2f64c270ac43af59b56b09fbe07, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 89866000b10994f4b89ca707b64411db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7911,7 +7836,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 347080647}
-  - {fileID: 418995525}
   - {fileID: 268093427}
   - {fileID: 823425265}
   m_Father: {fileID: 419599457}
@@ -10218,8 +10142,8 @@ MonoBehaviour:
   background:
   - {fileID: 823425264}
   - {fileID: 347080644}
-  - {fileID: 418995522}
   - {fileID: 268093426}
+  index: 0
 --- !u!224 &1823448976
 RectTransform:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CycleManager : MonoBehaviour
 {
     public GameObject[] background;
-    int index;
+    public int index;
 
     void Start()
     {
