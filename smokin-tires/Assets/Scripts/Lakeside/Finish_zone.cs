@@ -12,9 +12,7 @@ public class Finish_zone : MonoBehaviour
 	// game manager know that the current game has ended
 	void OnTriggerEnter(Collider other)
 	{
-		//audioPlayer.Play();
-		//FindObjectOfType<GameManager>().FinishedGame();
-		gameManager.FinishedGame();
+		gameManager.FinishLap();
 		this.enabled = false;
 	}
 }
