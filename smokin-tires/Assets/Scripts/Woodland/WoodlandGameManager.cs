@@ -231,8 +231,8 @@ public class WoodlandGameManager : MonoBehaviour
 
     public void RespawnAtWaypoint()
     {
-        currentCarSpeed = player.GetComponent<PrometeoCarController>().ReturnCarSpeed();
-        Debug.Log(currentCarSpeed);
+        //currentCarSpeed = player.GetComponent<PrometeoCarController>().ReturnCarSpeed();
+        //Debug.Log(currentCarSpeed);
 
         if (currentWaypoint == 0)
         {
