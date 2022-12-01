@@ -19,6 +19,9 @@ public class ChangeOptionsMenu : MonoBehaviour
 
     public CycleManager cycleManager;
 
+    public Animator transition;
+    public float transitionTime = 1f;
+
     //[SerializeField] private new GameObject camera;
 
     private void Start()
@@ -62,13 +65,13 @@ public class ChangeOptionsMenu : MonoBehaviour
         switch (cycleManager.index)
         {
             case 0:
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
                 break;
             case 1:
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+                StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 2));
                 break;
             case 2:
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+                StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 3));
                 break;
         }
     }
@@ -108,5 +111,15 @@ public class ChangeOptionsMenu : MonoBehaviour
         garageCamera2.SetActive(false);
         mainMenuCamera2.GetComponent<AudioListener>().enabled = true;
         garageCamera2.GetComponent<AudioListener>().enabled = false;
+    }
+
+    IEnumerator LoadLevel(int levelIndex)
+    {
+        //play animation
+        transition.SetTrigger("Start");
+        //delay code for animation
+        yield return new WaitForSeconds(transitionTime);
+        //load scene
+        SceneManager.LoadScene(levelIndex);
     }
 }
