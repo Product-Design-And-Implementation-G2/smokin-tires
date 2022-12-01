@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,12 +11,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject camera;
 
     // Place holders to allow connecting to other objects
-    public Transform spawnPoint;
+    public Transform spawnPoint1;
+    public Transform spawnPoint2;
+    public Transform spawnPoint3;
+    public Transform spawnPoint4;
+
     public GameObject player;
     public GameObject[] usersCars;
     public Transform waypoint1;
-
-
 
     public Transform waypoint2;
     public Transform waypoint3;
@@ -27,16 +31,19 @@ public class GameManager : MonoBehaviour
     public TMP_Text currentTimeText;
     public TMP_Text coinAmountText;
     public TMP_Text scoreboardText;
+    public TMP_Text gameFinishText;
+
+    public AudioSource victorySound;
 
     // Flags that control the state of the game
     private float timePassed;
-    private bool isRunning = false;
+    public bool isRunning = false;
     
     //players collected coins
     public int coinAmount;
 
     //waypoints
-    public GameObject[] waypoints;
+    //public GameObject[] waypoints;
     public int collectedWaypoints;
     public int currentWaypoint;
 
@@ -46,14 +53,34 @@ public class GameManager : MonoBehaviour
     //car index
     public int carIndex;
 
-    // Use this for initialization
+
+    //all the cars totalwaypoints
+    public GameObject carBlue;
+    public GameObject carYellow;
+    public GameObject carRed;
+
+    public GameObject FinishObject;
+
+    public Transform BluesTarget;
+    public Transform YellowsTarget;
+    public Transform RedsTarget;
+
+    public bool isSpawned = false;
+    public float TimeAfter = 20f;
+
+    public Transform firstAIWaypoint;
+
+
+    public LakeCountdown countdown;
+    public TMP_Text countdownText;
+
     void Start()
     {
         //choose the right car with carindex
         UpdateCarIndex();
 
         //set cinematic camera audiolistener off
-        camera.GetComponent<AudioListener>().enabled = false;
+        //camera.GetComponent<AudioListener>().enabled = false;
 
         //set current spawn waypoint at spawn
         currentWaypoint = 0;
@@ -112,10 +139,29 @@ public class GameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
+        //set all cars target position to null
+        //SetAICarPositionsToNull();
+
+        countdown.GetComponent<LakeCountdown>().enabled = true;
+
+        //set finishpoint unactive
+        Debug.Log("set active false to finish point");
+        FinishObject.SetActive(false);
+        isSpawned = false;
+
         Debug.Log("Start game was run");
         //set waypoint collected amount to 0 and enable disabled waypoints
         collectedWaypoints = 0;
-        EnableWaypoints();
+
+        //set all cars current laps to 0 in the lap system script
+        usersCars[carIndex].GetComponent<LapSystem>().CurrentLaps = 0;
+        carBlue.GetComponent<LapSystem>().CurrentLaps = 0;
+        carYellow.GetComponent<LapSystem>().CurrentLaps = 0;
+        carRed.GetComponent<LapSystem>().CurrentLaps = 0;
+
+        positionAllCarsToStart();
+
+
 
         //set map camera un-active before starting
         camera.SetActive(false);
@@ -124,23 +170,54 @@ public class GameManager : MonoBehaviour
         player.SetActive(true);
 
         //timer mode
-        timePassed = 0;
+        timePassed = 0f;
 
         //set bool variables to wanted states
-        isRunning = true;
+        //isRunning = true;
 
-        // Move the player to the spawn point, and allow it to move.
-        PositionPlayer();
-
-        //set finish zone un-active
-        finishZone.SetActive(false);
+        //clear the scoreboard tab for a new game
+        scoreboardText.text = "";
     }
+    
+    //TODO: couldnt get this to work
+    private void SetAICarPositionsToNull()
+    {
+        BluesTarget.position = firstAIWaypoint.position;
+        BluesTarget.rotation = firstAIWaypoint.rotation;
+
+        YellowsTarget.position = firstAIWaypoint.position;
+        YellowsTarget.rotation = firstAIWaypoint.rotation;
+
+        RedsTarget.position = firstAIWaypoint.position;
+        RedsTarget.rotation = firstAIWaypoint.rotation;
+    }
+
+    private void positionAllCarsToStart()
+    {
+        PositionPlayer();
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
+        carBlue.transform.position = spawnPoint2.position;
+        carBlue.transform.rotation = spawnPoint2.rotation;
+        carBlue.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        carBlue.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
+        carYellow.transform.position = spawnPoint3.position;
+        carYellow.transform.rotation = spawnPoint3.rotation;
+        carYellow.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        carYellow.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
+        carRed.transform.position = spawnPoint4.position;
+        carRed.transform.rotation = spawnPoint4.rotation;
+        carRed.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        carRed.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+    }
+
     public void NewLap()
     {
         collectedWaypoints = 0;
-        EnableWaypoints();
         currentWaypoint = 0;
-        finishZone.SetActive(false);
     }
 
     // Update is called once per frame
@@ -149,60 +226,93 @@ public class GameManager : MonoBehaviour
         if(isRunning)
         {
             UpdateCurrentTime();
+            TimeAfter = TimeAfter - Time.deltaTime;
         }
         // Add time to the clock if the game is running
         if (isRunning)
         {
             timePassed += Time.deltaTime;
+
+            //if player presses down tab, they can see the current lap times
+            if (Input.GetKey("tab"))
+            {
+                tabScreen.SetActive(true);
+            }
+            else
+            {
+                tabScreen.SetActive(false);
+            }
         } 
 
-        //if player presses down tab, they can see the current lap times
-        if (Input.GetKey("tab"))
+        if (TimeAfter <= 0 && isSpawned == false)
         {
-            tabScreen.SetActive(true);
-        } else
-        {
-            tabScreen.SetActive(false);
-        }
-
-        //check if player has all 3 necessary waypoints to enter the finish zone
-        if (collectedWaypoints == 3)
-        {
-            finishZone.SetActive(true);
+            Debug.Log("Spawn lap object");
+            FinishObject.SetActive(true);
+            TimeAfter = 20f;
+            isSpawned = true;
         }
     }
 
     //Runs when the player needs to be positioned back at a respawn point
     public void PositionPlayer()
     {
-        player.transform.position = spawnPoint.position;
-        player.transform.rotation = spawnPoint.rotation;
+        player.transform.position = spawnPoint1.position;
+        player.transform.rotation = spawnPoint1.rotation;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         Debug.Log("Player positioned");
     }
-
-    //Runs when the AI needs to be positioned back at a respawn point
-    internal void PositionAICar()
+    public void PositionBlue()
     {
+        carBlue.transform.position = BluesTarget.position;
+        carBlue.transform.rotation = BluesTarget.rotation;
+        carBlue.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        carBlue.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        //carBlue.
 
+        Debug.Log("carBlue positioned");
+    }
+    public void PositionYellow()
+    {
+        carYellow.transform.position = YellowsTarget.position;
+        carYellow.transform.rotation = YellowsTarget.rotation;
+        carYellow.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        carYellow.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        Debug.Log("carYellow positioned");
+    }
+    public void PositionRed()
+    {
+        carRed.transform.position = RedsTarget.position;
+        carRed.transform.rotation = RedsTarget.rotation;
+        carRed.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        carRed.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        Debug.Log("carRed positioned");
     }
 
     // Runs when the player enters the finish zone
     public void FinishedGame()
     {
-        UpdateLapTime();
+        restartGameScreen.SetActive(true);
+        if (usersCars[carIndex].GetComponent<LapSystem>().CurrentLaps == 3)
+        {
+            gameFinishText.text = "You won!!!";
+            victorySound.Play();
+        } else
+        {
+            gameFinishText.text = "You lost!!!";
+        }
+        Time.timeScale = 0.25f;
+    }
+    public void FinishLap()
+    {
         UpdateScoreboard();
         timePassed = 0;
         UpdateCurrentTime();
         NewLap();
-        //isRunning = false;
     }
-
-    private void EnableWaypoints()
+    public void ResumeTime()
     {
-        for (int i = 0; i < waypoints.Length; i++)
-        {
-            waypoints[i].SetActive(true);
-        }
+        Time.timeScale = 1f;
     }
 
     public void GetCoins(int receivedCoinAmount)
@@ -215,31 +325,23 @@ public class GameManager : MonoBehaviour
         collectedWaypoints++;
         currentWaypoint++;
     }
-
-    public void UpdateLapTime()
-    {
-        //lapTimeText.text += timePassed.ToString();
-        lapTimeText.text = timePassed.ToString() + "\n";
-    }
+    
     public void UpdateScoreboard()
     {
-        scoreboardText.text = scoreboardText.text + timePassed.ToString() + "\n";
+        scoreboardText.text = scoreboardText.text + timePassed.ToString("F2") + "\n";
     }
     public void UpdateCurrentTime()
     {
-        currentTimeText.text = timePassed.ToString();
+        currentTimeText.text = timePassed.ToString("F2");
     }
     public void UpdateCoinAmountText()
     {
         // TODO: make this limit the number of values displayed to 5. Also 
         coinAmountText.text = coinAmount.ToString();
     }
-
+    // TODO: couldnt get this to work with updated checkpoint/lap system
     public void RespawnAtWaypoint()
     {
-        //currentCarSpeed = player.GetComponent<PrometeoCarController>().ReturnCarSpeed();
-        //Debug.Log(currentCarSpeed);
-
         if (currentWaypoint == 0)
         {
             PositionPlayer();
@@ -264,5 +366,9 @@ public class GameManager : MonoBehaviour
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
+    }
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

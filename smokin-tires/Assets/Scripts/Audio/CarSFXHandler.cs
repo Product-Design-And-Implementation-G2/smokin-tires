@@ -13,11 +13,11 @@ public class CarSFXHandler : MonoBehaviour
     float desiredEnginePitch = 0.5f;
     float tireScreechPitch = 0.5f;
 
-    CarController CarController;
+    CarController2 CarController;
 
     void Awake()
     {
-        CarController = GetComponentInParent<CarController>();
+        CarController = GetComponentInParent<CarController2>();
     }
 
     // Start is called before the first frame update
