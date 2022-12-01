@@ -82,7 +82,6 @@ public class PauseMenu : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
         //load scene
         SceneManager.LoadScene(levelIndex);
-
     }
 
 }

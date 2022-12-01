@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ChangeOptionsMenu : MonoBehaviour
 {
@@ -21,8 +22,6 @@ public class ChangeOptionsMenu : MonoBehaviour
 
     public Animator transition;
     public float transitionTime = 1f;
-
-    //[SerializeField] private new GameObject camera;
 
     private void Start()
     {
