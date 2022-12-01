@@ -12,7 +12,14 @@ public class DesertPauseMenu : MonoBehaviour
 
     public GameObject optionsMenuUI;
 
+    public GameObject speedometerUI;
+
+    public GameObject scoreGUI;
+
     public DesertGameManager gameManager;
+
+    public Animator transition;
+    public float transitionTime = 1f;
 
     void Update()
     {
@@ -52,7 +59,11 @@ public class DesertPauseMenu : MonoBehaviour
         //Debug.Log("Loading menu");
         //TODO: Create a variable (don't hardcode this in)
         Time.timeScale = 1f;
-        SceneManager.LoadScene("UI");
+        //SceneManager.LoadScene("UI");
+        pauseMenuUI.SetActive(false);
+        scoreGUI.SetActive(false);
+        speedometerUI.SetActive(false);
+        StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex - 2));
     }
 
     public void QuitGame()
@@ -60,6 +71,15 @@ public class DesertPauseMenu : MonoBehaviour
         Debug.Log("Quitting game...");
         Application.Quit();
     }
+    IEnumerator LoadLevel(int levelIndex)
+    {
+        //play animation
+        transition.SetTrigger("Start");
+        //delay code for animation
+        yield return new WaitForSeconds(transitionTime);
+        //load scene
+        SceneManager.LoadScene(levelIndex);
 
+    }
 }
 

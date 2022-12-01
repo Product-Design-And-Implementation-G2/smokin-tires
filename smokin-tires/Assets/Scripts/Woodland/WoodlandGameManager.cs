@@ -27,7 +27,7 @@ public class WoodlandGameManager : MonoBehaviour
 
     // Flags that control the state of the game
     private float timePassed;
-    private bool isRunning = false;
+    public bool isRunning = false;
 
     //players collected coins
     public int coinAmount;
