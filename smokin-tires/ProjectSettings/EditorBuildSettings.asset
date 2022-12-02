@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/DesertMap.unity
     guid: 5e26cff363bee284f873d1b3f19c8137
   - enabled: 1
-    path: Assets/Scenes/Woodland.unity
+    path: Assets/_SecondMapUpdates/Woodland.unity
     guid: c9a18c5fc7fb69444947d31be00eb99a
   - enabled: 0
     path: Assets/Scenes/GrassLands.unity
