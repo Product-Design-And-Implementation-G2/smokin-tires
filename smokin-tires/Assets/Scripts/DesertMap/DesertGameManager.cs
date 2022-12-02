@@ -73,6 +73,15 @@ public class DesertGameManager : MonoBehaviour
 
     void Start()
     {
+        //stop menu music
+        try
+        {
+            FindObjectOfType<AudioManager2>().Stop("MenuTheme");
+        }
+        catch (InvalidCastException e)
+        {
+            Debug.Log(e);
+        }
         //choose the right car with carindex
         UpdateCarIndex();
 
@@ -136,6 +145,9 @@ public class DesertGameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
+
+        //start music
+        FindObjectOfType<AudioManager2>().Play("DesertTheme");  
 
         //play the countdown sequence
         //countdown = new Countdown();
@@ -302,11 +314,11 @@ public class DesertGameManager : MonoBehaviour
     }
     public void UpdateScoreboard()
     {
-        scoreboardText.text = scoreboardText.text + timePassed.ToString() + "\n";
+        scoreboardText.text = scoreboardText.text + timePassed.ToString("F2") + "\n";
     }
     public void UpdateCurrentTime()
     {
-        currentTimeText.text = timePassed.ToString();
+        currentTimeText.text = timePassed.ToString("F2");
     }
     public void UpdateCoinAmountText()
     {

@@ -56,7 +56,10 @@ public class WoodlandPauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
-        //Debug.Log("Loading menu");
+        //stop music
+        FindObjectOfType<AudioManager2>().Stop("WoodlandTheme");
+        //start menu music
+        FindObjectOfType<AudioManager2>().Play("MenuTheme");
         //TODO: Create a variable (don't hardcode this in)
         Time.timeScale = 1f;
         //SceneManager.LoadScene("UI");

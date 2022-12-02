@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class WoodlandGameManager : MonoBehaviour
 {
@@ -43,6 +44,15 @@ public class WoodlandGameManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //stop menu music
+        try
+        {
+            FindObjectOfType<AudioManager2>().Stop("MenuTheme");
+        }
+        catch (InvalidCastException e)
+        {
+            Debug.Log(e);
+        }
         //choose the right car with carindex
         UpdateCarIndex();
 
@@ -106,6 +116,9 @@ public class WoodlandGameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
+
+        //start music
+        FindObjectOfType<AudioManager2>().Play("WoodlandTheme");
         Debug.Log("Start game was run");
         //set waypoint collected amount to 0 and enable disabled waypoints
         collectedWaypoints = 0;

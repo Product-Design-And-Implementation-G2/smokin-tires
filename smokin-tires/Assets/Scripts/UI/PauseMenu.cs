@@ -61,6 +61,10 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
+        //stop menu music
+        FindObjectOfType<AudioManager2>().Stop("Lakeside_bgm");
+        //start music
+        FindObjectOfType<AudioManager2>().Play("MenuTheme");
         //Debug.Log("Loading menu");
         Time.timeScale = 1f;
         pauseMenuUI.SetActive(false);
