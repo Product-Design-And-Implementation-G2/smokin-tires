@@ -7,7 +7,7 @@ public class Minimap : MonoBehaviour
     private LineRenderer linerenderer;
     private GameObject Track;
 
-    public GameObject Player;
+    public GameObject Vehicles;
     public GameObject Ai;
     public GameObject AiSphere;
     public GameObject MiniMapCam;
@@ -35,10 +35,10 @@ public class Minimap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MiniMapCam.transform.position = (new Vector3(Player.transform.position.x, MiniMapCam.transform.position.y, Player.transform.position.z));
+        MiniMapCam.transform.position = (new Vector3(Vehicles.transform.position.x, MiniMapCam.transform.position.y, Vehicles.transform.position.z));
         //MiniMapCam.transform.position = (new Vector3(Ai.transform.position.x, MiniMapCam.transform.position.y, Ai.transform.position.z));
 
-        PlayerSphere.transform.position = (new Vector3(Player.transform.position.x, PlayerSphere.transform.position.y, Player.transform.position.z));
+        PlayerSphere.transform.position = (new Vector3(Vehicles.transform.position.x, PlayerSphere.transform.position.y, Vehicles.transform.position.z));
         AiSphere.transform.position = (new Vector3(Ai.transform.position.x, AiSphere.transform.position.y, Ai.transform.position.z));
 
 
