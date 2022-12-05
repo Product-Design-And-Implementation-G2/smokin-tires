@@ -3502,8 +3502,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcc5cfd323c76f4193733dfbfd68735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixerGroup: {fileID: 24300002, guid: 50e7249faa8f88249a9040f50a5fcd0c, type: 2}
-  audioMixer: {fileID: 0}
+  mixerGroup: {fileID: 24300002, guid: a3080fd59560b5846a65313e13b4e329, type: 2}
+  audioMixer: {fileID: 24100000, guid: a3080fd59560b5846a65313e13b4e329, type: 2}
   volumeSlider: {fileID: 1547990733}
   sounds:
   - name: Lakeside_bgm
@@ -3513,7 +3513,7 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 1
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: 24300002, guid: a3080fd59560b5846a65313e13b4e329, type: 2}
     source: {fileID: 0}
   - name: MenuTheme
     clip: {fileID: 8300000, guid: 2ad4d39f5aa7e414c98519d6955b0b20, type: 3}
@@ -3522,7 +3522,7 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 1
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: 24300002, guid: a3080fd59560b5846a65313e13b4e329, type: 2}
     source: {fileID: 0}
   - name: DesertTheme
     clip: {fileID: 8300000, guid: f6c4519a80f0e534395d41c99c1064a1, type: 3}
@@ -3531,7 +3531,7 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 1
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: 24300002, guid: a3080fd59560b5846a65313e13b4e329, type: 2}
     source: {fileID: 0}
   - name: MenuClick
     clip: {fileID: 8300000, guid: 99348d26b121bdf40bca2ff30b000207, type: 3}
@@ -3548,8 +3548,8 @@ MonoBehaviour:
     volumeVariance: 1
     pitch: 1
     pitchVariance: 0
-    loop: 0
-    mixerGroup: {fileID: 0}
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: a3080fd59560b5846a65313e13b4e329, type: 2}
     source: {fileID: 0}
 --- !u!4 &552297774
 Transform:
@@ -3968,7 +3968,7 @@ Transform:
   m_GameObject: {fileID: 716050039}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 552297774}
@@ -4224,7 +4224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4bf482f7dae964bbbcf3e18e5d554b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 50e7249faa8f88249a9040f50a5fcd0c, type: 2}
+  audioMixer: {fileID: 24100000, guid: a3080fd59560b5846a65313e13b4e329, type: 2}
   resolutionDropdown: {fileID: 936155922}
   graphicsDropdown: {fileID: 1858759150}
   mainMenuCamera2: {fileID: 161459155}
@@ -8615,7 +8615,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1542999966}
   m_LocalRotation: {x: -0.046902966, y: -0.9345672, z: 0.1343741, w: -0.3260796}
-  m_LocalPosition: {x: 72.57647, y: 12.302895, z: 1033.8737}
+  m_LocalPosition: {x: 72.902, y: 12.149, z: 1033.464}
   m_LocalScale: {x: 0.47968778, y: 0.4796875, z: 0.47968778}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8776,17 +8776,17 @@ MonoBehaviour:
   m_FillRect: {fileID: 28322760}
   m_HandleRect: {fileID: 3752898}
   m_Direction: 0
-  m_MinValue: -80
-  m_MaxValue: 0
-  m_WholeNumbers: 1
-  m_Value: 0
+  m_MinValue: 0.0001
+  m_MaxValue: 1
+  m_WholeNumbers: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 550382941}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: ChangeMasterVolume
-        m_Mode: 1
+      - m_Target: {fileID: 750002026}
+        m_TargetAssemblyTypeName: ChangeOptionsMenu, Assembly-CSharp
+        m_MethodName: SetVolume
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -53,7 +53,8 @@ public class SettingsOptions : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("carMixer", volume);
+        //audioMixer.SetFloat("CarMixer", volume);
+        audioMixer.SetFloat("CarMixer", Mathf.Log10(volume) * 70);
     } 
     public void SetQuality(int qualityIndex)
     {

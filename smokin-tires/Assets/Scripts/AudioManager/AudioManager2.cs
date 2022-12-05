@@ -34,7 +34,9 @@ public class AudioManager2 : MonoBehaviour
 			s.source.loop = s.loop;
 
 			s.source.outputAudioMixerGroup = mixerGroup;
+			volumeSlider.value = s.source.volume;
 		}
+		
 	}
     private void Start()
     {
@@ -50,7 +52,7 @@ public class AudioManager2 : MonoBehaviour
 			return;
 		}
 
-		s.source.volume = s.volume * (1f + UnityEngine.Random.Range(-s.volumeVariance / 2f, s.volumeVariance / 2f));
+		s.source.volume = s.volume * (.5f + UnityEngine.Random.Range(-s.volumeVariance / 1f, s.volumeVariance / 1f));
 		s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
 
 		s.source.Play();
@@ -65,10 +67,4 @@ public class AudioManager2 : MonoBehaviour
 		}
 		s.source.Stop();
 	}
-
-	public void ChangeMasterVolume()
-	{
-		audioMixer.SetFloat("BGMMixer", volumeSlider.value);
-	}
-
 }

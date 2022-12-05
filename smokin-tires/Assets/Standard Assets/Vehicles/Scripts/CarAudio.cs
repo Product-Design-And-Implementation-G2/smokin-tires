@@ -34,6 +34,7 @@ namespace UnityStandardAssets.Vehicles.Car
         public AudioClip lowDecelClip;                                              // Audio clip for low deceleration
         public AudioClip highAccelClip;                                             // Audio clip for high acceleration
         public AudioClip highDecelClip;                                             // Audio clip for high deceleration
+        
         public float pitchMultiplier = 1f;                                          // Used for altering the pitch of audio clips
         public float lowPitchMin = 1f;                                              // The lowest possible pitch for the low sounds
         public float lowPitchMax = 6f;                                              // The highest possible pitch for the low sounds
@@ -43,10 +44,10 @@ namespace UnityStandardAssets.Vehicles.Car
         public bool useDoppler = true;                                              // Toggle for using doppler
         public Camera camera;
 
-        private AudioSource m_LowAccel; // Source for the low acceleration sounds
-        private AudioSource m_LowDecel; // Source for the low deceleration sounds
-        private AudioSource m_HighAccel; // Source for the high acceleration sounds
-        private AudioSource m_HighDecel; // Source for the high deceleration sounds
+        public AudioSource m_LowAccel; // Source for the low acceleration sounds
+        public AudioSource m_LowDecel; // Source for the low deceleration sounds
+        public AudioSource m_HighAccel; // Source for the high acceleration sounds
+        public AudioSource m_HighDecel; // Source for the high deceleration sounds
         private bool m_StartedSound; // flag for knowing if we have started sounds
         private CarController m_CarController; // Reference to car we are controlling
 
@@ -55,17 +56,35 @@ namespace UnityStandardAssets.Vehicles.Car
         {
             // get the carcontroller ( this will not be null as we have require component)
             m_CarController = GetComponent<CarController>();
+            /*
+                        // setup the simple audio source
+                        //m_HighAccel = SetUpEngineAudioSource(highAccelClip);
 
+
+                        // if we have four channel audio setup the four audio sources
+                        if (engineSoundStyle == EngineAudioOptions.FourChannel)
+                        {
+                            m_LowAccel = SetUpEngineAudioSource(lowAccelClip);
+                            m_LowDecel = SetUpEngineAudioSource(lowDecelClip);
+                            m_HighDecel = SetUpEngineAudioSource(highDecelClip);
+                        }
+            */
+
+
+            
             // setup the simple audio source
-            m_HighAccel = SetUpEngineAudioSource(highAccelClip);
+            m_HighAccel = SetUpEngineAudioSource(m_HighAccel);
+
 
             // if we have four channel audio setup the four audio sources
             if (engineSoundStyle == EngineAudioOptions.FourChannel)
             {
-                m_LowAccel = SetUpEngineAudioSource(lowAccelClip);
-                m_LowDecel = SetUpEngineAudioSource(lowDecelClip);
-                m_HighDecel = SetUpEngineAudioSource(highDecelClip);
+                m_LowAccel = SetUpEngineAudioSource(m_LowAccel);
+                m_LowDecel = SetUpEngineAudioSource(m_LowDecel);
+                m_HighDecel = SetUpEngineAudioSource(m_HighDecel);
             }
+
+
 
             // flag that we have started the sounds playing
             m_StartedSound = true;
@@ -158,16 +177,17 @@ namespace UnityStandardAssets.Vehicles.Car
 
 
         // sets up and adds new audio source to the gane object
-        private AudioSource SetUpEngineAudioSource(AudioClip clip)
+        //private AudioSource SetUpEngineAudioSource(AudioClip clip)
+        private AudioSource SetUpEngineAudioSource(AudioSource source)
         {
             // create the new audio source component on the game object and set up its properties
-            AudioSource source = gameObject.AddComponent<AudioSource>();
-            source.clip = clip;
+            //AudioSource source = gameObject.AddComponent<AudioSource>();
+            //source.clip = clip;
             source.volume = 0;
             source.loop = true;
 
             // start the clip from a random point
-            source.time = Random.Range(0f, clip.length);
+            //source.time = Random.Range(0f, clip.length);
             source.Play();
             source.minDistance = 5;
             source.maxDistance = maxRolloffDistance;

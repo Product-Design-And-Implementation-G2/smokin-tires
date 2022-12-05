@@ -82,7 +82,8 @@ public class ChangeOptionsMenu : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("BGMMixer", volume);
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 70);
+        //audioMixer.SetFloat("MasterVolume", volume);
     } 
     public void SetQuality(int qualityIndex)
     {
