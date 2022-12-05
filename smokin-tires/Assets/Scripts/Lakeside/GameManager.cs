@@ -53,7 +53,6 @@ public class GameManager : MonoBehaviour
     //car index
     public int carIndex;
 
-
     //all the cars totalwaypoints
     public GameObject carBlue;
     public GameObject carYellow;
@@ -70,12 +69,22 @@ public class GameManager : MonoBehaviour
 
     public Transform firstAIWaypoint;
 
-
     public LakeCountdown countdown;
     public TMP_Text countdownText;
 
     void Start()
     {
+        try
+        {
+            FindObjectOfType<AudioManager2>().Stop("MenuTheme");
+        }
+        catch (InvalidCastException e)
+        {
+            Debug.Log(e);
+        }
+
+        //stop menu music
+
         //choose the right car with carindex
         UpdateCarIndex();
 
@@ -141,6 +150,9 @@ public class GameManager : MonoBehaviour
     {
         //set all cars target position to null
         //SetAICarPositionsToNull();
+        
+        //start music
+        FindObjectOfType<AudioManager2>().Play("Lakeside_bgm");
 
         countdown.GetComponent<LakeCountdown>().enabled = true;
 

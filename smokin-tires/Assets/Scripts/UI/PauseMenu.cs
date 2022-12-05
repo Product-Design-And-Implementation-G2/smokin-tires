@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -9,19 +10,14 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
-
     public GameObject optionsMenuUI;
-
     public GameObject speedometerUI;
-
     public GameObject scoreGUI;
-
     public GameManager gameManager;
-
     public bool isRunning;
-
     public Animator transition;
     public float transitionTime = 1f;
+    //public AudioListener audioListener;
 
     private void Start()
     {
@@ -46,6 +42,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        AudioListener.pause = false;
         pauseMenuUI.SetActive(false);
         optionsMenuUI.SetActive(false);
         Time.timeScale = 1f;
@@ -53,6 +50,7 @@ public class PauseMenu : MonoBehaviour
     }
     void Pause()
     {
+        AudioListener.pause = true;
         pauseMenuUI.SetActive(true);
         optionsMenuUI.SetActive(false);
         Time.timeScale = 0f;
@@ -61,6 +59,11 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
+        AudioListener.pause = false;
+        //stop menu music
+        FindObjectOfType<AudioManager2>().Stop("Lakeside_bgm");
+        //start music
+        FindObjectOfType<AudioManager2>().Play("MenuTheme");
         //Debug.Log("Loading menu");
         Time.timeScale = 1f;
         pauseMenuUI.SetActive(false);

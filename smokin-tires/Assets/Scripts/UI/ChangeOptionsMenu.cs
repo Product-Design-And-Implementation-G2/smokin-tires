@@ -10,6 +10,8 @@ public class ChangeOptionsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
 
+    public Slider slider;
+
     Resolution[] resolutions;
 
     public TMP_Dropdown resolutionDropdown;
@@ -23,8 +25,14 @@ public class ChangeOptionsMenu : MonoBehaviour
     public Animator transition;
     public float transitionTime = 1f;
 
+    private void OnDisable()
+    {
+        PlayerPrefs.SetFloat("MasterVolume", slider.value);
+    }
+
     private void Start()
     {
+        slider.value = PlayerPrefs.GetFloat("MasterVolume", slider.value);
         //set up cameras
         mainMenuCamera2.SetActive(true);
         garageCamera2.SetActive(false);
@@ -82,7 +90,8 @@ public class ChangeOptionsMenu : MonoBehaviour
 
     public void SetVolume(float volume)
     {
-        audioMixer.SetFloat("BGMMixer", volume);
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 70);
+        //audioMixer.SetFloat("MasterVolume", volume);
     } 
     public void SetQuality(int qualityIndex)
     {
