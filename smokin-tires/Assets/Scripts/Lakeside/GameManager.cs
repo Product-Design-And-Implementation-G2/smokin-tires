@@ -69,7 +69,6 @@ public class GameManager : MonoBehaviour
 
     public Transform firstAIWaypoint;
 
-
     public LakeCountdown countdown;
     public TMP_Text countdownText;
 

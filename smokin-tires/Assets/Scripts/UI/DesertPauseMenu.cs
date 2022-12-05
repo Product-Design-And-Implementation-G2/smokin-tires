@@ -41,6 +41,7 @@ public class DesertPauseMenu : MonoBehaviour
 
     public void Resume()
     {
+        AudioListener.pause = false;
         pauseMenuUI.SetActive(false);
         optionsMenuUI.SetActive(false);
         Time.timeScale = 1f;
@@ -48,6 +49,7 @@ public class DesertPauseMenu : MonoBehaviour
     }
     void Pause()
     {
+        AudioListener.pause = true;
         pauseMenuUI.SetActive(true);
         optionsMenuUI.SetActive(false);
         Time.timeScale = 0f;
@@ -56,6 +58,7 @@ public class DesertPauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
+        AudioListener.pause = false;
         //stop music
         FindObjectOfType<AudioManager2>().Stop("DesertTheme");
         //start menu music

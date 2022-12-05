@@ -5,9 +5,7 @@ using UnityEngine.UI;
 
 public class AudioManager2 : MonoBehaviour
 {
-
 	public static AudioManager2 instance;
-
 	public AudioMixerGroup mixerGroup;
 
 	[SerializeField] AudioMixer audioMixer;
@@ -34,9 +32,7 @@ public class AudioManager2 : MonoBehaviour
 			s.source.loop = s.loop;
 
 			s.source.outputAudioMixerGroup = mixerGroup;
-			volumeSlider.value = s.source.volume;
 		}
-		
 	}
     private void Start()
     {
