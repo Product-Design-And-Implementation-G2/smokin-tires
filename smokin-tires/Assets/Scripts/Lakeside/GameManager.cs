@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
     public LakeCountdown countdown;
     public TMP_Text countdownText;
 
+    public Transform currentPlayerRespawnPoint;
+
     void Start()
     {
         try
@@ -264,6 +266,15 @@ public class GameManager : MonoBehaviour
             isSpawned = true;
         }
     }
+    public void RespawnPlayer()
+    {
+        player.transform.position = currentPlayerRespawnPoint.position;
+        player.transform.rotation = currentPlayerRespawnPoint.rotation;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        Debug.Log("Player respawned");
+    }
+
 
     //Runs when the player needs to be positioned back at a respawn point
     public void PositionPlayer()

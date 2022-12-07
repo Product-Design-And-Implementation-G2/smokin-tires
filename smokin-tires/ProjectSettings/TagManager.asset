@@ -11,6 +11,7 @@ TagManager:
   - Yellowcar
   - Redcar
   - Playercar
+  - RespawnTag
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Waypoint
   - AI_Waypoint
   - Minimap
-  - 
+  - RespawnPoint
   - 
   - 
   - 
