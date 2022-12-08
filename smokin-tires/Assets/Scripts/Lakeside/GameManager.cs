@@ -72,6 +72,8 @@ public class GameManager : MonoBehaviour
     public LakeCountdown countdown;
     public TMP_Text countdownText;
 
+    public Transform currentPlayerRespawnPoint;
+
     void Start()
     {
         try
@@ -152,7 +154,15 @@ public class GameManager : MonoBehaviour
         //SetAICarPositionsToNull();
         
         //start music
-        FindObjectOfType<AudioManager2>().Play("Lakeside_bgm");
+        try
+        {
+            FindObjectOfType<AudioManager2>().Play("Lakeside_bgm");
+        }
+        catch (InvalidCastException e)
+        {
+            Debug.Log("Ran into an error when trying to play lakeside_bgm");
+            Debug.Log(e);
+        }
 
         countdown.GetComponent<LakeCountdown>().enabled = true;
 
@@ -264,6 +274,15 @@ public class GameManager : MonoBehaviour
             isSpawned = true;
         }
     }
+    public void RespawnPlayer()
+    {
+        player.transform.position = currentPlayerRespawnPoint.position;
+        player.transform.rotation = currentPlayerRespawnPoint.rotation;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        Debug.Log("Player respawned");
+    }
+
 
     //Runs when the player needs to be positioned back at a respawn point
     public void PositionPlayer()
