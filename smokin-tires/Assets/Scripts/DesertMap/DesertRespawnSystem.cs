@@ -1,20 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
 
-public class PlayerRespawnScript : MonoBehaviour
+public class DesertRespawnSystem : MonoBehaviour
 {
-    public GameManager gameManager;
+    public DesertGameManager gameManager;
     public GameObject[] respawnPoints;
     public GameObject currentRespawnPoint;
     public int respawnIndex;
 
     public float Distance;
 
-    float oldDistance =0f;
-
-    bool isRunning = false;
+    float oldDistance = 0f;
 
     public GameObject goingTheWrongWayScreen;
     private void Start()
@@ -31,33 +28,34 @@ public class PlayerRespawnScript : MonoBehaviour
             currentRespawnPoint = respawnPoints[respawnIndex];
             gameManager.currentPlayerRespawnPoint = currentRespawnPoint.transform;
             respawnIndex++;
+            if (respawnIndex >= respawnPoints.Length)
+            {
+                StartCoroutine(RestoreRespawns());
+                respawnIndex = 0;
+            }
         }
     }
 
     private void Update()
     {
-        if (gameManager.isRunning) { 
-        Distance = Vector3.Distance(respawnPoints[respawnIndex].transform.position, gameObject.transform.position);
-
-        if (respawnIndex == 5)
+        if (gameManager.isRunning)
         {
-            respawnIndex = 0;
-            StartCoroutine(RestoreRespawns());
-        }
+            Distance = Vector3.Distance(respawnPoints[respawnIndex].transform.position, gameObject.transform.position);
 
-        if (Distance > oldDistance) { 
-            print("Player is moving away from the next point");
-            goingTheWrongWayScreen.SetActive(true);
-        } 
-        else if (oldDistance > Distance)
-        {
-            goingTheWrongWayScreen.SetActive(false);
-        }
-        oldDistance = Distance;
+            if (Distance > oldDistance)
+            {
+                print("Player is moving away from the next point");
+                goingTheWrongWayScreen.SetActive(true);
+            }
+            else if (oldDistance > Distance)
+            {
+                goingTheWrongWayScreen.SetActive(false);
+            }
+            oldDistance = Distance;
         }
     }
 
-   IEnumerator RestoreRespawns()
+    IEnumerator RestoreRespawns()
     {
         yield return new WaitForSeconds(3);
         for (int i = 0; i < respawnPoints.Length; i++)
@@ -66,3 +64,4 @@ public class PlayerRespawnScript : MonoBehaviour
         }
     }
 }
+

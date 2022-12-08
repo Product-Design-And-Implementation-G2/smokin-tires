@@ -71,6 +71,8 @@ public class DesertGameManager : MonoBehaviour
     public Countdown countdown;
     public TMP_Text countdownText;
 
+    public Transform currentPlayerRespawnPoint;
+
     void Start()
     {
         //stop menu music
@@ -147,8 +149,15 @@ public class DesertGameManager : MonoBehaviour
     {
 
         //start music
-        FindObjectOfType<AudioManager2>().Play("DesertTheme");  
-
+        try
+        {
+            FindObjectOfType<AudioManager2>().Play("DesertTheme");
+        }
+        catch (InvalidCastException e)
+        {
+            Debug.Log("Ran into an error when trying to play DesertTheme");
+            Debug.Log(e);
+        }
         //play the countdown sequence
         //countdown = new Countdown();
         countdown.GetComponent<Countdown>().enabled = true;
@@ -261,6 +270,15 @@ public class DesertGameManager : MonoBehaviour
         {
             finishZone.SetActive(true);
         }
+    }
+
+    public void RespawnPlayer()
+    {
+        player.transform.position = currentPlayerRespawnPoint.position;
+        player.transform.rotation = currentPlayerRespawnPoint.rotation;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        Debug.Log("Player respawned");
     }
 
     //Runs when the player needs to be positioned back at the spawn point

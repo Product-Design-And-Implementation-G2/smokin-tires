@@ -154,7 +154,15 @@ public class GameManager : MonoBehaviour
         //SetAICarPositionsToNull();
         
         //start music
-        FindObjectOfType<AudioManager2>().Play("Lakeside_bgm");
+        try
+        {
+            FindObjectOfType<AudioManager2>().Play("Lakeside_bgm");
+        }
+        catch (InvalidCastException e)
+        {
+            Debug.Log("Ran into an error when trying to play lakeside_bgm");
+            Debug.Log(e);
+        }
 
         countdown.GetComponent<LakeCountdown>().enabled = true;
 
