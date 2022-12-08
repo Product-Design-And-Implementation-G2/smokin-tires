@@ -76,14 +76,8 @@ public class DesertGameManager : MonoBehaviour
     void Start()
     {
         //stop menu music
-        try
-        {
-            FindObjectOfType<AudioManager2>().Stop("MenuTheme");
-        }
-        catch (InvalidCastException e)
-        {
-            Debug.Log(e);
-        }
+        FindObjectOfType<AudioManager2>().Stop("MenuTheme");
+ 
         //choose the right car with carindex
         UpdateCarIndex();
 
@@ -149,15 +143,9 @@ public class DesertGameManager : MonoBehaviour
     {
 
         //start music
-        try
-        {
-            FindObjectOfType<AudioManager2>().Play("DesertTheme");
-        }
-        catch (InvalidCastException e)
-        {
-            Debug.Log("Ran into an error when trying to play DesertTheme");
-            Debug.Log(e);
-        }
+        FindObjectOfType<AudioManager2>().Play("DesertTheme");
+        
+
         //play the countdown sequence
         //countdown = new Countdown();
         countdown.GetComponent<Countdown>().enabled = true;

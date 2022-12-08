@@ -36,8 +36,8 @@ public class AudioManager2 : MonoBehaviour
 	}
     private void Start()
     {
-		Play("MenuTheme");
-    }
+		Play("MenuTheme");	
+	}
 
     public void Play(string sound)
 	{

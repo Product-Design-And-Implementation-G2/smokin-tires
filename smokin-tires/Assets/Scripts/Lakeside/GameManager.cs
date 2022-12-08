@@ -76,14 +76,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        try
-        {
-            FindObjectOfType<AudioManager2>().Stop("MenuTheme");
-        }
-        catch (InvalidCastException e)
-        {
-            Debug.Log(e);
-        }
+        FindObjectOfType<AudioManager2>().Stop("MenuTheme");
 
         //stop menu music
 
@@ -154,15 +147,7 @@ public class GameManager : MonoBehaviour
         //SetAICarPositionsToNull();
         
         //start music
-        try
-        {
-            FindObjectOfType<AudioManager2>().Play("Lakeside_bgm");
-        }
-        catch (InvalidCastException e)
-        {
-            Debug.Log("Ran into an error when trying to play lakeside_bgm");
-            Debug.Log(e);
-        }
+        FindObjectOfType<AudioManager2>().Play("Lakeside_bgm");
 
         countdown.GetComponent<LakeCountdown>().enabled = true;
 
