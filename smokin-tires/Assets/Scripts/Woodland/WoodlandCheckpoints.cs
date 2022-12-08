@@ -11,7 +11,7 @@ public class WoodlandCheckpoints : MonoBehaviour
 
     [Header("Cars Car01 = Player Car")]
     public GameObject[] usersCars;
-     public Transform Car01;
+     //public Transform Car01;
     public Transform Car02;
     //public Transform Car03;
     //public Transform Car04;
@@ -40,7 +40,6 @@ public class WoodlandCheckpoints : MonoBehaviour
     {
 
         DistanceArrays[0] = Vector3.Distance(transform.position, usersCars[gameManager.carIndex].transform.position);
-        //DistanceArrays[0] = Vector3.Distance(transform.position, Car01.position);
         DistanceArrays[1] = Vector3.Distance(transform.position, Car02.position);
         //DistanceArrays[2] = Vector3.Distance(transform.position, Car03.position);
         //DistanceArrays[3] = Vector3.Distance(transform.position, Car04.position);
@@ -53,7 +52,6 @@ public class WoodlandCheckpoints : MonoBehaviour
         //Fourth = DistanceArrays[3];
 
         float Car01Dist = Vector3.Distance(transform.position, usersCars[gameManager.carIndex].transform.position);
-        //float Car01Dist = Vector3.Distance(transform.position, Car01.position);
         float Car02Dist = Vector3.Distance(transform.position, Car02.position);
         //float Car03Dist = Vector3.Distance(transform.position, Car03.position);
         //float Car04Dist = Vector3.Distance(transform.position, Car04.position);

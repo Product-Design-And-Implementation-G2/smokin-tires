@@ -157,21 +157,21 @@ public class WoodlandGameManager : MonoBehaviour
         player.SetActive(true);
 
         //timer mode
-        timePassed = 0;
+        timePassed = 0f;
 
         //set bool variables to wanted states
         //isRunning = true;
 
         // Move the player to the spawn point, and allow it to move.
-        PositionPlayer();
+        //PositionPlayer();
 
         //set finish zone un-active
-        finishZone.SetActive(false);
+        //finishZone.SetActive(false);
     }
 
     private void positionAllCarsToStart()
     {
-        //PositionPlayer();
+        PositionPlayer();
 
         //player.transform.position = spawnPoint1.position;
         //player.transform.rotation = spawnPoint1.rotation;
