@@ -73,8 +73,11 @@ public class Minimap : MonoBehaviour
         linerenderer.startWidth = 7f;
         linerenderer.endWidth = 7f;
 
-        
+
+        linerenderer.SetPosition(num_of_path, linerenderer.GetPosition(95));
+
     }
+
     private void UpdateCarIndex()
     {
         carIndex = PlayerPreferences.carIndex;
