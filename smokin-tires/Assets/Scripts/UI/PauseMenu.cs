@@ -13,7 +13,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject optionsMenuUI;
     public GameObject speedometerUI;
     public GameObject scoreGUI;
-    public GameManager gameManager;
+    public LakeGameManager gameManager;
     public bool isRunning;
     public Animator transition;
     public float transitionTime = 1f;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WayPointDestroyer : MonoBehaviour
 {
-    public GameManager gameManager;
+    public LakeGameManager gameManager;
 
     //enables coin collection
     private void OnTriggerEnter(Collider other)

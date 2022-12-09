@@ -29,7 +29,7 @@ public class CheckpointSystem : MonoBehaviour
     public TMP_Text Car04Text;
 
     public GameObject NextCheckPoint;
-    public GameManager gameManager;
+    public LakeGameManager gameManager;
 
     void Start()
     {

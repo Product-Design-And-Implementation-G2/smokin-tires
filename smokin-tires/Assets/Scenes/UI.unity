@@ -3540,7 +3540,16 @@ MonoBehaviour:
     pitch: 1
     pitchVariance: 0
     loop: 0
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: 24300002, guid: 216106f6da55f9643a39041079cb66f3, type: 2}
+    source: {fileID: 0}
+  - name: WoodlandTheme
+    clip: {fileID: 8300000, guid: 11df812822ce2ea4a8a7ff8d88555afb, type: 3}
+    volume: 1
+    volumeVariance: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: a3080fd59560b5846a65313e13b4e329, type: 2}
     source: {fileID: 0}
   - name: WoodlandTheme
     clip: {fileID: 8300000, guid: 11df812822ce2ea4a8a7ff8d88555afb, type: 3}
@@ -8780,7 +8789,7 @@ MonoBehaviour:
   m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.8
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:

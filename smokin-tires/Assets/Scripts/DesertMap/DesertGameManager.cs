@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class DesertGameManager : MonoBehaviour
 {
-    [SerializeField] GameObject finishZone;
     [SerializeField] private GameObject camera;
 
     // Place holders to allow connecting to other objects
@@ -30,30 +29,17 @@ public class DesertGameManager : MonoBehaviour
 
     public GameObject player;
     public GameObject[] usersCars;
-    public Transform waypoint1;
-    public Transform waypoint2;
-    public Transform waypoint3;
 
     //UI
     public GameObject startScreen;
     public GameObject restartGameScreen;
     public GameObject tabScreen;
-    public TMP_Text lapTimeText;
     public TMP_Text currentTimeText;
-    public TMP_Text coinAmountText;
     public TMP_Text scoreboardText;
 
     // Flags that control the state of the game
     private float timePassed;
     public bool isRunning = false;
-
-    //players collected coins
-    public int coinAmount;
-
-    //waypoints
-    public GameObject[] waypoints;
-    public int collectedWaypoints;
-    public int currentWaypoint;
 
     //used for determening whether player is going slow enough to respawn
     public int currentCarSpeed;
@@ -76,22 +62,10 @@ public class DesertGameManager : MonoBehaviour
     void Start()
     {
         //stop menu music
-        try
-        {
-            FindObjectOfType<AudioManager2>().Stop("MenuTheme");
-        }
-        catch (InvalidCastException e)
-        {
-            Debug.Log(e);
-        }
+        FindObjectOfType<AudioManager2>().Stop("MenuTheme");
+ 
         //choose the right car with carindex
         UpdateCarIndex();
-
-        //set cinematic camera audiolistener off
-        //camera.GetComponent<AudioListener>().enabled = false;
-
-        //set current spawn waypoint at spawn
-        currentWaypoint = 0;
 
         if (carIndex == 0)
         {
@@ -129,9 +103,6 @@ public class DesertGameManager : MonoBehaviour
         //Tell Unity to allow character controllers to have their position set directly. This will enable our respawn to work
         Physics.autoSyncTransforms = true;
 
-        //set finish zone un-active
-        finishZone.SetActive(false);
-
         //set map camera active before starting
         camera.SetActive(true);
 
@@ -147,17 +118,9 @@ public class DesertGameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
-
         //start music
-        try
-        {
-            FindObjectOfType<AudioManager2>().Play("DesertTheme");
-        }
-        catch (InvalidCastException e)
-        {
-            Debug.Log("Ran into an error when trying to play DesertTheme");
-            Debug.Log(e);
-        }
+        FindObjectOfType<AudioManager2>().Play("DesertTheme");
+
         //play the countdown sequence
         //countdown = new Countdown();
         countdown.GetComponent<Countdown>().enabled = true;
@@ -176,28 +139,17 @@ public class DesertGameManager : MonoBehaviour
         //set map camera un-active before starting
         camera.SetActive(false);
         //set player active before starting
-        // TODO: Fix the map camera
         player.SetActive(true);
 
         //timer mode
         timePassed = 0;
 
-        //set bool variables to wanted states
-        //isRunning = true;
-
         // Move the player to the spawn point, and allow it to move.
         PositionPlayer();
-
-        //set finish zone un-active
-        finishZone.SetActive(false);
     }
 
     private void positionAllCarsToStart()
     {
-        //PositionPlayer();
-
-        //player.transform.position = spawnPoint1.position;
-        //player.transform.rotation = spawnPoint1.rotation;
         player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
         player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
 
@@ -222,19 +174,10 @@ public class DesertGameManager : MonoBehaviour
         UpdateScoreboard();
         timePassed = 0;
         UpdateCurrentTime();
-        NewLap();
     }
     public void ResumeTime()
     {
         Time.timeScale = 1f;
-    }
-
-    public void NewLap()
-    {
-        collectedWaypoints = 0;
-        //EnableWaypoints();
-        currentWaypoint = 0;
-        finishZone.SetActive(false);
     }
 
     // Update is called once per frame
@@ -263,12 +206,6 @@ public class DesertGameManager : MonoBehaviour
                 TimeAfter = 20f;
                 isSpawned = true;
             }
-        }
-
-        //check if player has all 3 necessary waypoints to enter the finish zone
-        if (collectedWaypoints == 3)
-        {
-            finishZone.SetActive(true);
         }
     }
 
@@ -305,31 +242,6 @@ public class DesertGameManager : MonoBehaviour
         Time.timeScale = 0.25f;
     }
 
-    //unused in the newer lapSystem
-    private void EnableWaypoints()
-    {
-        for (int i = 0; i < waypoints.Length; i++)
-        {
-            waypoints[i].SetActive(true);
-        }
-    }
-
-    public void GetCoins(int receivedCoinAmount)
-    {
-        coinAmount = receivedCoinAmount;
-    }
-
-    public void WaypointCount()
-    {
-        collectedWaypoints++;
-        currentWaypoint++;
-    }
-
-    public void UpdateLapTime()
-    {
-        //lapTimeText.text += timePassed.ToString();
-       //lapTimeText.text = timePassed.ToString() + "\n";
-    }
     public void UpdateScoreboard()
     {
         scoreboardText.text = scoreboardText.text + timePassed.ToString("F2") + "\n";
@@ -337,45 +249,6 @@ public class DesertGameManager : MonoBehaviour
     public void UpdateCurrentTime()
     {
         currentTimeText.text = timePassed.ToString("F2");
-    }
-    public void UpdateCoinAmountText()
-    {
-        // TODO: make this limit the number of values displayed to 5. Also 
-        coinAmountText.text = coinAmount.ToString();
-    }
-
-    public void RespawnAtWaypoint()
-    {
-        //currentCarSpeed = player.GetComponent<PrometeoCarController>().ReturnCarSpeed();
-        //Debug.Log(currentCarSpeed);
-
-        if (currentWaypoint == 0)
-        {
-            PositionPlayer();
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        }
-        else if (currentWaypoint == 1)
-        {
-            player.transform.position = waypoint1.position;
-            player.transform.rotation = waypoint1.rotation;
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        }
-        else if (currentWaypoint == 2)
-        {
-            player.transform.position = waypoint2.position;
-            player.transform.rotation = waypoint2.rotation;
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        }
-        else if (currentWaypoint == 3)
-        {
-            player.transform.position = waypoint3.position;
-            player.transform.rotation = waypoint3.rotation;
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        }
     }
     public void ResetGame()
     {

@@ -21,7 +21,7 @@ public class Collectables : MonoBehaviour
     }
     public void updateCoinAmount(int a)
     {
-        FindObjectOfType<GameManager>().GetCoins(a);
-        FindObjectOfType<GameManager>().UpdateCoinAmountText();
+        FindObjectOfType<LakeGameManager>().GetCoins(a);
+        FindObjectOfType<LakeGameManager>().UpdateCoinAmountText();
     }
 }
