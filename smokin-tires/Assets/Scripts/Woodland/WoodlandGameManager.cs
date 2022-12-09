@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class WoodlandGameManager : MonoBehaviour
 {
@@ -10,7 +11,23 @@ public class WoodlandGameManager : MonoBehaviour
     [SerializeField] private GameObject camera;
 
     // Place holders to allow connecting to other objects
-    public Transform spawnPoint;
+    //public Transform spawnPoint;
+
+    public Transform spawnPoint1;
+    public Transform spawnPoint2;
+    //public Transform spawnPoint3;
+    //public Transform spawnPoint4;
+
+    //all ai car compteritors
+    //public GameObject carBlue;
+    public GameObject carYellow;
+    //public GameObject carRed;
+
+    //ai car waypoint targets
+    //public Transform BluesTarget;
+    public Transform YellowsTarget;
+    //public Transform RedsTarget;
+
     public GameObject player;
     public GameObject[] usersCars;
     public Transform waypoint1;
@@ -38,10 +55,22 @@ public class WoodlandGameManager : MonoBehaviour
     public int collectedWaypoints;
     public int currentWaypoint;
 
+    //used for determening whether player is going slow enough to respawn
+    public int currentCarSpeed;
+
     //car index
     public int carIndex;
 
-    // Use this for initialization
+    //lapCheckpoint spawning variables
+    public bool isSpawned = false;
+    public float TimeAfter = 20f;
+    public GameObject FinishObject;
+
+    public TMP_Text gameFinishText;
+
+    public WoodlandCountdown countdown;
+    public TMP_Text countdownText;
+
     void Start()
     {
         //stop menu music
@@ -123,33 +152,82 @@ public class WoodlandGameManager : MonoBehaviour
         //set waypoint collected amount to 0 and enable disabled waypoints
         collectedWaypoints = 0;
         EnableWaypoints();
+        //play the countdown sequence
+        
+        countdown.GetComponent<WoodlandCountdown>().enabled = true;
+
+        FinishObject.SetActive(false);
+        isSpawned = false;
+
+        //set all cars current laps to 0 in the lap system script
+        usersCars[carIndex].GetComponent<WoodlandLapSystem>().CurrentLaps = 0;
+        carYellow.GetComponent<WoodlandLapSystem>().CurrentLaps = 0;
+
+        positionAllCarsToStart();
 
         //set map camera un-active before starting
-        //camera.SetActive(false);
+        camera.SetActive(false);
         //set player active before starting
         // TODO: Fix the map camera
         player.SetActive(true);
 
         //timer mode
-        timePassed = 0;
+        timePassed = 0f;
 
         //set bool variables to wanted states
-        isRunning = true;
+        //isRunning = true;
 
         // Move the player to the spawn point, and allow it to move.
-        PositionPlayer();
+        //PositionPlayer();
 
         //set finish zone un-active
-        finishZone.SetActive(false);
+        //finishZone.SetActive(false);
     }
+
+    private void positionAllCarsToStart()
+    {
+        PositionPlayer();
+
+        //player.transform.position = spawnPoint1.position;
+        //player.transform.rotation = spawnPoint1.rotation;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
+        carYellow.transform.position = spawnPoint2.position;
+        carYellow.transform.rotation = spawnPoint2.rotation;
+        carYellow.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        carYellow.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
+        //carRed.transform.position = spawnPoint3.position;
+        //carRed.transform.rotation = spawnPoint3.rotation;
+        //carRed.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        //carRed.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+
+        //carBlue.transform.position = spawnPoint4.position;
+        //carBlue.transform.rotation = spawnPoint4.rotation;
+        //carBlue.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        //carBlue.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+    }
+
+    public void FinishLap()
+    {
+        UpdateScoreboard();
+        timePassed = 0;
+        UpdateCurrentTime();
+        NewLap();
+    }
+    public void ResumeTime()
+    {
+        Time.timeScale = 1f;
+    }
+
     public void NewLap()
     {
         collectedWaypoints = 0;
-        EnableWaypoints();
+        //EnableWaypoints();
         currentWaypoint = 0;
         finishZone.SetActive(false);
     }
-    
 
     // Update is called once per frame
     void Update()
@@ -157,21 +235,26 @@ public class WoodlandGameManager : MonoBehaviour
         if (isRunning)
         {
             UpdateCurrentTime();
-        }
-        // Add time to the clock if the game is running
-        if (isRunning)
-        {
             timePassed += Time.deltaTime;
-        }
 
-        //if player presses down tab, they can see the current lap times
-        if (Input.GetKey("tab"))
-        {
-            tabScreen.SetActive(true);
-        }
-        else
-        {
-            tabScreen.SetActive(false);
+            //if player presses down tab, they can see the current lap times
+            if (Input.GetKey("tab"))
+            {
+                tabScreen.SetActive(true);
+            }
+            else
+            {
+                tabScreen.SetActive(false);
+            }
+
+            TimeAfter = TimeAfter - Time.deltaTime;
+            if (TimeAfter <= 0 && isSpawned == false)
+            {
+                Debug.Log("Spawn lap object");
+                FinishObject.SetActive(true);
+                TimeAfter = 20f;
+                isSpawned = true;
+            }
         }
 
         //check if player has all 3 necessary waypoints to enter the finish zone
@@ -184,23 +267,28 @@ public class WoodlandGameManager : MonoBehaviour
     //Runs when the player needs to be positioned back at the spawn point
     public void PositionPlayer()
     {
-        player.transform.position = spawnPoint.position;
-        player.transform.rotation = spawnPoint.rotation;
+        player.transform.position = spawnPoint1.position;
+        player.transform.rotation = spawnPoint1.rotation;
         Debug.Log("Player positioned");
     }
 
     // Runs when the player enters the finish zone
     public void FinishedGame()
     {
-        //UpdateLapTime();
-        UpdateScoreboard();
-        timePassed = 0;
-        UpdateCurrentTime();
-        //NewLap();
         restartGameScreen.SetActive(true);
-        isRunning = false;
+        if (usersCars[carIndex].GetComponent<WoodlandLapSystem>().timeCounter < carYellow.GetComponent<WoodlandLapSystem>().timeCounter)
+        {
+            gameFinishText.text = "You won!!!";
+        }
+        else
+        {
+            gameFinishText.text = "You lost!!!";
+        }
+        countdown.GetComponent<WoodlandCountdown>().enabled = false;
+        Time.timeScale = 0.25f;
     }
 
+    //unused in the newer lapSystem
     private void EnableWaypoints()
     {
         for (int i = 0; i < waypoints.Length; i++)
@@ -223,7 +311,7 @@ public class WoodlandGameManager : MonoBehaviour
     public void UpdateLapTime()
     {
         //lapTimeText.text += timePassed.ToString();
-        lapTimeText.text = timePassed.ToString() + "\n";
+        //lapTimeText.text = timePassed.ToString() + "\n";
     }
     public void UpdateScoreboard()
     {
@@ -241,6 +329,8 @@ public class WoodlandGameManager : MonoBehaviour
 
     public void RespawnAtWaypoint()
     {
+        //currentCarSpeed = player.GetComponent<PrometeoCarController>().ReturnCarSpeed();
+        //Debug.Log(currentCarSpeed);
 
         if (currentWaypoint == 0)
         {
@@ -269,5 +359,9 @@ public class WoodlandGameManager : MonoBehaviour
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         }
+    }
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
