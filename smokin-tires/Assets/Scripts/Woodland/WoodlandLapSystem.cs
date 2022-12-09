@@ -87,11 +87,11 @@ public class WoodlandLapSystem : MonoBehaviour
         {
             timeCounter = 0;
             isTriggered = false;
-            if (CurrentLaps == TotalLaps)
-            {
-                Debug.Log("Game over");
-                gameManager.FinishedGame();
-            }
+            //if (CurrentLaps == TotalLaps)
+            //{
+            Debug.Log("Game over");
+            gameManager.FinishedGame();
+            //}
         }
     }
 }

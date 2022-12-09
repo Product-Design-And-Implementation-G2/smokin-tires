@@ -261,7 +261,7 @@ public class WoodlandGameManager : MonoBehaviour
     public void FinishedGame()
     {
         restartGameScreen.SetActive(true);
-        if (usersCars[carIndex].GetComponent<WoodlandLapSystem>().CurrentLaps == 1)
+        if (usersCars[carIndex].GetComponent<WoodlandLapSystem>().timeCounter < carYellow.GetComponent<WoodlandLapSystem>().timeCounter)
         {
             gameFinishText.text = "You won!!!";
         }
