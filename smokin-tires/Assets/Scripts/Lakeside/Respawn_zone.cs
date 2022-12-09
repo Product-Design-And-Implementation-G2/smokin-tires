@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Respawn_zone : MonoBehaviour
 {
-	[SerializeField] GameManager gameManager;
+	[SerializeField] LakeGameManager gameManager;
 
 	// Triggers when the player enters the water
 	void OnTriggerEnter(Collider other)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RespawnZoneWoodland : MonoBehaviour
 {
-	[SerializeField] GameManager gameManager;
+	[SerializeField] WoodlandGameManager gameManager;
 
 	// Triggers when the player enters the water
 	void OnTriggerEnter(Collider other)

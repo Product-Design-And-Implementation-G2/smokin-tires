@@ -8,7 +8,7 @@ public class Speedometer : MonoBehaviour
 {
     public Rigidbody target;
     public GameObject[] usersCars;
-    public GameManager gameManager;
+    public LakeGameManager gameManager;
 
     public float maxSpeed = 0.0f; // The maximum speed of the target ** IN KM/H **
 

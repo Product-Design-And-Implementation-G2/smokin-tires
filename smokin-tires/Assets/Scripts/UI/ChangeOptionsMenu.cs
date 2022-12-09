@@ -29,7 +29,6 @@ public class ChangeOptionsMenu : MonoBehaviour
     {
         PlayerPrefs.SetFloat("MasterVolume", slider.value);
     }
-
     private void Start()
     {
         slider.value = PlayerPrefs.GetFloat("MasterVolume", slider.value);

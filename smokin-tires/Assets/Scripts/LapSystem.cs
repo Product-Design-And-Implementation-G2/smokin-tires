@@ -15,7 +15,7 @@ public class LapSystem : MonoBehaviour
     public bool CanDoLaps = false;
 
     public bool isTriggered;
-    public GameManager gameManager;
+    public LakeGameManager gameManager;
 
     public float timeCounter;
 
