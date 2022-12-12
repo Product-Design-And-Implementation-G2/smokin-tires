@@ -150,8 +150,8 @@ public class WoodlandGameManager : MonoBehaviour
         FindObjectOfType<AudioManager2>().Play("WoodlandTheme");
         Debug.Log("Start game was run");
         //set waypoint collected amount to 0 and enable disabled waypoints
-        collectedWaypoints = 0;
-        EnableWaypoints();
+        //collectedWaypoints = 0;
+        //EnableWaypoints();
         //play the countdown sequence
         
         countdown.GetComponent<WoodlandCountdown>().enabled = true;

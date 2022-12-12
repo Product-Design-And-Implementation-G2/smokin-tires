@@ -284,11 +284,11 @@ namespace UnityStandardAssets.Vehicles.Car
 
                     // avoiding all four tires screeching at the same time
                     // if they do it can lead to some strange audio artefacts
-                    if (!AnySkidSoundPlaying())
-                    {
-                        m_WheelEffects[i].PlayAudio();
-                    }
-                    continue;
+                    //if (!AnySkidSoundPlaying())
+                    //{
+                    //    m_WheelEffects[i].PlayAudio();
+                    //}
+                    //continue;
                 }
 
                 // if it wasnt slipping stop all the audio
