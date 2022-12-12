@@ -71,6 +71,8 @@ public class WoodlandGameManager : MonoBehaviour
     public WoodlandCountdown countdown;
     public TMP_Text countdownText;
 
+    public Transform currentPlayerRespawnPoint;
+
     void Start()
     {
         //stop menu music
@@ -262,6 +264,17 @@ public class WoodlandGameManager : MonoBehaviour
         {
             finishZone.SetActive(true);
         }
+    }
+
+    public void RespawnPlayer()
+    {
+        player.transform.position = currentPlayerRespawnPoint.position;
+        player.transform.rotation = currentPlayerRespawnPoint.rotation;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        Debug.Log("Player respawned");
+
+
     }
 
     //Runs when the player needs to be positioned back at the spawn point
