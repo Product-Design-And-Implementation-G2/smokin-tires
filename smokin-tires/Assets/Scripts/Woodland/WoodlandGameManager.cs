@@ -151,7 +151,7 @@ public class WoodlandGameManager : MonoBehaviour
         Debug.Log("Start game was run");
         //set waypoint collected amount to 0 and enable disabled waypoints
         collectedWaypoints = 0;
-        EnableWaypoints();
+        //EnableWaypoints();
         //play the countdown sequence
         
         countdown.GetComponent<WoodlandCountdown>().enabled = true;
