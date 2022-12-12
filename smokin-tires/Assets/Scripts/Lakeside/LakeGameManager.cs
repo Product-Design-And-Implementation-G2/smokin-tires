@@ -75,9 +75,8 @@ public class LakeGameManager : MonoBehaviour
 
     void Start()
     {
-        FindObjectOfType<AudioManager2>().Stop("MenuTheme");
-
         //stop menu music
+        FindObjectOfType<AudioManager2>().Stop("MenuTheme");
 
         //choose the right car with carindex
         UpdateCarIndex();
@@ -139,9 +138,6 @@ public class LakeGameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
-        //set all cars target position to null
-        //SetAICarPositionsToNull();
-        
         //start music
         FindObjectOfType<AudioManager2>().Play("Lakeside_bgm");
 

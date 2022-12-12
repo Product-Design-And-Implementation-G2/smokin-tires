@@ -40,15 +40,11 @@ public class WoodlandGameManager : MonoBehaviour
     public GameObject tabScreen;
     public TMP_Text lapTimeText;
     public TMP_Text currentTimeText;
-    public TMP_Text coinAmountText;
     public TMP_Text scoreboardText;
 
     // Flags that control the state of the game
     private float timePassed;
     public bool isRunning = false;
-
-    //players collected coins
-    public int coinAmount;
 
     //waypoints
     public GameObject[] waypoints;
@@ -74,19 +70,10 @@ public class WoodlandGameManager : MonoBehaviour
     void Start()
     {
         //stop menu music
-        try
-        {
-            FindObjectOfType<AudioManager2>().Stop("MenuTheme");
-        }
-        catch (InvalidCastException e)
-        {
-            Debug.Log(e);
-        }
+        FindObjectOfType<AudioManager2>().Stop("MenuTheme");
+
         //choose the right car with carindex
         UpdateCarIndex();
-
-        //set cinematic camera audiolistener off
-        //camera.GetComponent<AudioListener>().enabled = false;
 
         //set current spawn waypoint at spawn
         currentWaypoint = 0;
@@ -145,15 +132,13 @@ public class WoodlandGameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
-
         //start music
         FindObjectOfType<AudioManager2>().Play("WoodlandTheme");
         Debug.Log("Start game was run");
         //set waypoint collected amount to 0 and enable disabled waypoints
         collectedWaypoints = 0;
-        //EnableWaypoints();
+
         //play the countdown sequence
-        
         countdown.GetComponent<WoodlandCountdown>().enabled = true;
 
         FinishObject.SetActive(false);
@@ -173,15 +158,6 @@ public class WoodlandGameManager : MonoBehaviour
 
         //timer mode
         timePassed = 0f;
-
-        //set bool variables to wanted states
-        //isRunning = true;
-
-        // Move the player to the spawn point, and allow it to move.
-        //PositionPlayer();
-
-        //set finish zone un-active
-        //finishZone.SetActive(false);
     }
 
     private void positionAllCarsToStart()
@@ -197,16 +173,6 @@ public class WoodlandGameManager : MonoBehaviour
         carYellow.transform.rotation = spawnPoint2.rotation;
         carYellow.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
         carYellow.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-
-        //carRed.transform.position = spawnPoint3.position;
-        //carRed.transform.rotation = spawnPoint3.rotation;
-        //carRed.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
-        //carRed.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-
-        //carBlue.transform.position = spawnPoint4.position;
-        //carBlue.transform.rotation = spawnPoint4.rotation;
-        //carBlue.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePosition;
-        //carBlue.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
 
     public void FinishLap()
@@ -288,49 +254,22 @@ public class WoodlandGameManager : MonoBehaviour
         Time.timeScale = 0.25f;
     }
 
-    //unused in the newer lapSystem
-    private void EnableWaypoints()
-    {
-        for (int i = 0; i < waypoints.Length; i++)
-        {
-            waypoints[i].SetActive(true);
-        }
-    }
-
-    public void GetCoins(int receivedCoinAmount)
-    {
-        coinAmount = receivedCoinAmount;
-    }
-
     public void WaypointCount()
     {
         collectedWaypoints++;
         currentWaypoint++;
     }
-
-    public void UpdateLapTime()
-    {
-        //lapTimeText.text += timePassed.ToString();
-        //lapTimeText.text = timePassed.ToString() + "\n";
-    }
     public void UpdateScoreboard()
     {
-        scoreboardText.text = scoreboardText.text + timePassed.ToString() + "\n";
+        scoreboardText.text = scoreboardText.text + timePassed.ToString("F2") + "\n";
     }
     public void UpdateCurrentTime()
     {
-        currentTimeText.text = timePassed.ToString();
-    }
-    public void UpdateCoinAmountText()
-    {
-        // TODO: make this limit the number of values displayed to 5. Also 
-        coinAmountText.text = coinAmount.ToString();
+        currentTimeText.text = timePassed.ToString("F2");
     }
 
     public void RespawnAtWaypoint()
     {
-        //currentCarSpeed = player.GetComponent<PrometeoCarController>().ReturnCarSpeed();
-        //Debug.Log(currentCarSpeed);
 
         if (currentWaypoint == 0)
         {

@@ -2,6 +2,7 @@ using UnityEngine.Audio;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AudioManager2 : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class AudioManager2 : MonoBehaviour
 	public AudioMixerGroup mixerGroup;
 
 	[SerializeField] AudioMixer audioMixer;
-	[SerializeField] Slider volumeSlider;
 
 	public Sound[] sounds;
 
@@ -34,11 +34,13 @@ public class AudioManager2 : MonoBehaviour
 			s.source.outputAudioMixerGroup = mixerGroup;
 		}
 	}
+
     private void Start()
     {
-		Play("MenuTheme");	
+		Debug.Log("Start menutheme");
+		Play("MenuTheme");
 	}
-
+	
     public void Play(string sound)
 	{
 		Sound s = Array.Find(sounds, item => item.name == sound);
@@ -47,9 +49,6 @@ public class AudioManager2 : MonoBehaviour
 			Debug.LogWarning("Sound: " + name + " not found!");
 			return;
 		}
-
-		s.source.volume = s.volume * (.5f + UnityEngine.Random.Range(-s.volumeVariance / 1f, s.volumeVariance / 1f));
-		s.source.pitch = s.pitch * (1f + UnityEngine.Random.Range(-s.pitchVariance / 2f, s.pitchVariance / 2f));
 
 		s.source.Play();
 	}
@@ -61,6 +60,7 @@ public class AudioManager2 : MonoBehaviour
 			Debug.LogWarning("Sound: " + name + " not found!");
 			return;
 		}
+
 		s.source.Stop();
 	}
 }

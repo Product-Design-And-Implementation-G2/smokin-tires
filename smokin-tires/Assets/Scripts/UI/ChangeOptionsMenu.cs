@@ -29,8 +29,10 @@ public class ChangeOptionsMenu : MonoBehaviour
     {
         PlayerPrefs.SetFloat("MasterVolume", slider.value);
     }
+    
     private void Start()
     {
+        //play menutheme
         slider.value = PlayerPrefs.GetFloat("MasterVolume", slider.value);
         //set up cameras
         mainMenuCamera2.SetActive(true);
