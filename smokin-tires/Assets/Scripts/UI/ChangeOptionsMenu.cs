@@ -19,6 +19,7 @@ public class ChangeOptionsMenu : MonoBehaviour
 
     [SerializeField] private GameObject mainMenuCamera2;
     [SerializeField] private GameObject garageCamera2;
+    [SerializeField] private GameObject mapCamera;
 
     public CycleManager cycleManager;
 
@@ -37,6 +38,11 @@ public class ChangeOptionsMenu : MonoBehaviour
         //set up cameras
         mainMenuCamera2.SetActive(true);
         garageCamera2.SetActive(false);
+        mapCamera.SetActive(false);
+
+        mainMenuCamera2.GetComponent<AudioListener>().enabled = true;
+        garageCamera2.GetComponent<AudioListener>().enabled = false;
+        mapCamera.GetComponent<AudioListener>().enabled = false;
 
         //set quality settings
         int qualityLevel = QualitySettings.GetQualityLevel();
@@ -120,6 +126,15 @@ public class ChangeOptionsMenu : MonoBehaviour
         garageCamera2.SetActive(false);
         mainMenuCamera2.GetComponent<AudioListener>().enabled = true;
         garageCamera2.GetComponent<AudioListener>().enabled = false;
+    }
+    public void SwapToMapCamera()
+    {
+        mainMenuCamera2.SetActive(false);
+        garageCamera2.SetActive(false);
+        mapCamera.SetActive(true);
+        mainMenuCamera2.GetComponent<AudioListener>().enabled = false;
+        garageCamera2.GetComponent<AudioListener>().enabled = false;
+        mapCamera.GetComponent<AudioListener>().enabled = true;
     }
 
     IEnumerator LoadLevel(int levelIndex)
