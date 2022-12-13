@@ -134,6 +134,8 @@ public class WoodlandGameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
+        //stops game end theme if the player has restarted the game
+        FindObjectOfType<AudioManager2>().Stop("GameEndTheme");
         //start music
         FindObjectOfType<AudioManager2>().Play("WoodlandTheme");
         Debug.Log("Start game was run");
@@ -254,6 +256,8 @@ public class WoodlandGameManager : MonoBehaviour
     public void FinishedGame()
     {
         restartGameScreen.SetActive(true);
+        FindObjectOfType<AudioManager2>().Stop("WoodlandTheme");
+        FindObjectOfType<AudioManager2>().Play("GameEndTheme");
         if (usersCars[carIndex].GetComponent<WoodlandLapSystem>().timeCounter < carYellow.GetComponent<WoodlandLapSystem>().timeCounter)
         {
             gameFinishText.text = "You won!!!";

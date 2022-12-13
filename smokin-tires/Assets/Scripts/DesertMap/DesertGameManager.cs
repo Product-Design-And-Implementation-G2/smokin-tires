@@ -61,6 +61,8 @@ public class DesertGameManager : MonoBehaviour
 
     void Start()
     {
+        //stops game end theme if the player has restarted the game
+        FindObjectOfType<AudioManager2>().Stop("GameEndTheme");
         //stop menu music
         FindObjectOfType<AudioManager2>().Stop("MenuTheme");
  
@@ -118,6 +120,9 @@ public class DesertGameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
+        //stops gameend theme if the player has restarted the game
+        FindObjectOfType<AudioManager2>().Stop("GameEndTheme");
+
         //start music
         FindObjectOfType<AudioManager2>().Play("DesertTheme");
 
@@ -230,6 +235,8 @@ public class DesertGameManager : MonoBehaviour
     public void FinishedGame()
     {
         restartGameScreen.SetActive(true);
+        FindObjectOfType<AudioManager2>().Stop("DesertTheme");
+        FindObjectOfType<AudioManager2>().Play("GameEndTheme");
         if (usersCars[carIndex].GetComponent<DesertLapSystem>().CurrentLaps == 3)
         {
             gameFinishText.text = "You won!!!";

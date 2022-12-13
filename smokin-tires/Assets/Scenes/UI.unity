@@ -3754,6 +3754,15 @@ MonoBehaviour:
     loop: 1
     mixerGroup: {fileID: 24300002, guid: a3080fd59560b5846a65313e13b4e329, type: 2}
     source: {fileID: 0}
+  - name: GameEndTheme
+    clip: {fileID: 8300000, guid: 115aedafa11b48c4f864b69172e2e31b, type: 3}
+    volume: 1
+    volumeVariance: 1
+    pitch: 1
+    pitchVariance: 0
+    loop: 1
+    mixerGroup: {fileID: 24300002, guid: a3080fd59560b5846a65313e13b4e329, type: 2}
+    source: {fileID: 0}
 --- !u!4 &552297774
 Transform:
   m_ObjectHideFlags: 0

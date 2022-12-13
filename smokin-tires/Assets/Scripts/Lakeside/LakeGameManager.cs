@@ -138,6 +138,9 @@ public class LakeGameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
+        //stops game end theme if the player has restarted the game
+        FindObjectOfType<AudioManager2>().Stop("GameEndTheme");
+
         //start music
         FindObjectOfType<AudioManager2>().Play("Lakeside_bgm");
 
@@ -301,10 +304,12 @@ public class LakeGameManager : MonoBehaviour
     public void FinishedGame()
     {
         restartGameScreen.SetActive(true);
+        FindObjectOfType<AudioManager2>().Stop("Lakeside_bgm");
+        FindObjectOfType<AudioManager2>().Play("GameEndTheme");
         if (usersCars[carIndex].GetComponent<LapSystem>().CurrentLaps == 3)
         {
             gameFinishText.text = "You won!!!";
-            victorySound.Play();
+            //victorySound.Play();
         } else
         {
             gameFinishText.text = "You lost!!!";

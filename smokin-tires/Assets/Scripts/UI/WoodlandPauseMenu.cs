@@ -59,6 +59,8 @@ public class WoodlandPauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         AudioListener.pause = false;
+        //stops game end theme if the player has restarted the game
+        FindObjectOfType<AudioManager2>().Stop("GameEndTheme");
         //stop music
         FindObjectOfType<AudioManager2>().Stop("WoodlandTheme");
         //start menu music

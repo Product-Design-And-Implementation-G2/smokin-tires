@@ -59,6 +59,8 @@ public class DesertPauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         AudioListener.pause = false;
+        //stops game end theme if the player has restarted the game
+        FindObjectOfType<AudioManager2>().Stop("GameEndTheme");
         //stop music
         FindObjectOfType<AudioManager2>().Stop("DesertTheme");
         //start menu music
