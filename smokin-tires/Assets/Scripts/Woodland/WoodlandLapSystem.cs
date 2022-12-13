@@ -7,7 +7,6 @@ public class WoodlandLapSystem : MonoBehaviour
 {
     public int TotalLaps;
     [SerializeField] public int CurrentLaps;
-    public TMP_Text lapDisplayText;
     public bool isPlayer;
 
     public float minTimeBetweenLaps;
@@ -33,17 +32,6 @@ public class WoodlandLapSystem : MonoBehaviour
         }
 
         timeCounter += Time.deltaTime;
-        if (isPlayer)
-        {
-            if (CurrentLaps < TotalLaps)
-            {
-                lapDisplayText.text = (CurrentLaps + 1) + "/" + TotalLaps;
-            }
-            else
-            {
-                lapDisplayText.text = (CurrentLaps) + "/" + TotalLaps;
-            }
-        }
     }
     private void IncrementLaps()
     {

@@ -10,14 +10,8 @@ public class WoodlandRespawn : MonoBehaviour
     public GameObject currentRespawnPoint;
     public int respawnIndex;
 
-    public float Distance;
-
-    float oldDistance =0f;
-
-    public GameObject goingTheWrongWayScreen;
     private void Start()
     {
-
         respawnIndex = 0;
     }
 
@@ -34,25 +28,6 @@ public class WoodlandRespawn : MonoBehaviour
                 StartCoroutine(RestoreRespawns());
                 respawnIndex = 0;
             }
-        }
-    }
-
-    private void Update()
-    {
-        if (gameManager.isRunning) { 
-        Distance = Vector3.Distance(respawnPoints[respawnIndex].transform.position, gameObject.transform.position);
-
-
-
-        if (Distance > oldDistance) { 
-            print("Player is moving away from the next point");
-            goingTheWrongWayScreen.SetActive(true);
-        } 
-        else if (oldDistance > Distance)
-        {
-            goingTheWrongWayScreen.SetActive(false);
-        }
-        oldDistance = Distance;
         }
     }
 
