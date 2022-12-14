@@ -59,6 +59,8 @@ public class DesertGameManager : MonoBehaviour
 
     public Transform currentPlayerRespawnPoint;
 
+    bool finishGameTriggered;
+
     void Start()
     {
         //stops game end theme if the player has restarted the game
@@ -120,6 +122,7 @@ public class DesertGameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
+        finishGameTriggered = false;
         //stops gameend theme if the player has restarted the game
         FindObjectOfType<AudioManager2>().Stop("GameEndTheme");
 
@@ -234,19 +237,27 @@ public class DesertGameManager : MonoBehaviour
     // Runs when the player enters the finish zone
     public void FinishedGame()
     {
-        restartGameScreen.SetActive(true);
-        FindObjectOfType<AudioManager2>().Stop("DesertTheme");
-        FindObjectOfType<AudioManager2>().Play("GameEndTheme");
-        if (usersCars[carIndex].GetComponent<DesertLapSystem>().CurrentLaps == 3)
+        if(finishGameTriggered == false) { 
+            restartGameScreen.SetActive(true);
+            FindObjectOfType<AudioManager2>().Stop("DesertTheme");
+            FindObjectOfType<AudioManager2>().Play("GameEndTheme");
+            if (usersCars[carIndex].GetComponent<DesertLapSystem>().CurrentLaps == 3)
+            {
+                gameFinishText.text = "You won!!!";
+                finishGameTriggered = true;
+            }
+            else
+            {
+                gameFinishText.text = "You lost!!!";
+                finishGameTriggered = true;
+            }
+            countdown.GetComponent<Countdown>().enabled = false;
+            Time.timeScale = 0.25f;
+            finishGameTriggered = true;
+        } else
         {
-            gameFinishText.text = "You won!!!";
+            Debug.Log("Game end sequence already in place");
         }
-        else
-        {
-            gameFinishText.text = "You lost!!!";
-        }
-        countdown.GetComponent<Countdown>().enabled = false;
-        Time.timeScale = 0.25f;
     }
 
     public void UpdateScoreboard()

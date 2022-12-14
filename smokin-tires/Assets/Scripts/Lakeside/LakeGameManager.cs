@@ -73,8 +73,11 @@ public class LakeGameManager : MonoBehaviour
 
     public Transform currentPlayerRespawnPoint;
 
+    bool finishGameTriggered;
     void Start()
     {
+        //stops game end theme if the player has restarted the game
+        FindObjectOfType<AudioManager2>().Stop("GameEndTheme");
         //stop menu music
         FindObjectOfType<AudioManager2>().Stop("MenuTheme");
 
@@ -138,6 +141,7 @@ public class LakeGameManager : MonoBehaviour
     //This resets to game back to the way it started
     public void StartGame()
     {
+        finishGameTriggered = false;
         //stops game end theme if the player has restarted the game
         FindObjectOfType<AudioManager2>().Stop("GameEndTheme");
 
@@ -303,18 +307,26 @@ public class LakeGameManager : MonoBehaviour
     // Runs when the player enters the finish zone
     public void FinishedGame()
     {
-        restartGameScreen.SetActive(true);
-        FindObjectOfType<AudioManager2>().Stop("Lakeside_bgm");
-        FindObjectOfType<AudioManager2>().Play("GameEndTheme");
-        if (usersCars[carIndex].GetComponent<LapSystem>().CurrentLaps == 3)
+        if (finishGameTriggered == false)
         {
-            gameFinishText.text = "You won!!!";
-            //victorySound.Play();
+            restartGameScreen.SetActive(true);
+            FindObjectOfType<AudioManager2>().Stop("Lakeside_bgm");
+            FindObjectOfType<AudioManager2>().Play("GameEndTheme");
+            if (usersCars[carIndex].GetComponent<LapSystem>().CurrentLaps == 3)
+            {
+                gameFinishText.text = "You won!!!";
+                //victorySound.Play();
+            }
+            else
+            {
+                gameFinishText.text = "You lost!!!";
+            }
+            Time.timeScale = 0.25f;
+            finishGameTriggered = true;
         } else
         {
-            gameFinishText.text = "You lost!!!";
+            Debug.Log("Game end sequnce already commencing");
         }
-        Time.timeScale = 0.25f;
     }
     public void FinishLap()
     {
