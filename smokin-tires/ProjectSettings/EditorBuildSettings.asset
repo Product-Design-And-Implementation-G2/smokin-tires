@@ -18,9 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Woodland.unity
     guid: c9a18c5fc7fb69444947d31be00eb99a
   - enabled: 0
-    path: Assets/Scenes/GrassLands.unity
+    path: Assets/Scenes/Demo/GrassLands.unity
     guid: 7475f962ffa33f945a43d526ef247c86
   - enabled: 0
-    path: Assets/Scenes/SandDunes.unity
+    path: Assets/Scenes/Demo/SandDunes.unity
     guid: 1cfa8ad0147d8324690cd8f6fbe42b1b
   m_configObjects: {}
